@@ -32,13 +32,13 @@
         
         /* Transição para a sanfona (accordion) */
         .accordion-content {
-            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
             max-height: 0;
             opacity: 0;
             overflow: hidden;
         }
         .accordion-content.open {
-            max-height: 500px; /* valor alto o suficiente para caber o texto */
+            max-height: 800px; /* Aumentado para caber textos bem longos e detalhados */
             opacity: 1;
         }
     </style>
@@ -228,19 +228,19 @@
                     titulo.classList.add('text-verde-alerta');
                     titulo.textContent = "Equilíbrio Operacional";
                     pontos.textContent = cargaTotal + " pts";
-                    txtDiagnostico.innerHTML = `Com base na avaliação ${periodoSelecionado.toLowerCase()}, <strong>${nome}</strong> apresenta níveis saudáveis de absorção cognitiva e emocional. A empatia encontra-se preservada e o risco de esgotamento é baixo.`;
+                    txtDiagnostico.innerHTML = `Com base na avaliação ${periodoSelecionado.toLowerCase()}, <strong>${nome}</strong> apresenta níveis saudáveis de absorção cognitiva e emocional. A empatia encontra-se preservada, permitindo tomadas de decisão estratégicas e acolhimento genuíno aos colaboradores. O risco psicossocial atual é considerado baixo.`;
                     
                     conteudoSanfona = gerarAccordion(
-                        'org', 'Frente Organizacional',
-                        `<li><strong>Aproveitamento Estratégico:</strong> Direcionar o foco do profissional para projetos de inovação (ex: <em>Employer Branding</em> ou <em>People Analytics</em>).</li>
-                         <li><strong>Cultura e Mentoria:</strong> Delegar a condução de integrações de novos funcionários (Onboarding).</li>`
+                        'org', '🛡️ 1. Frente Organizacional (Gestão do Trabalho)',
+                        `<li class="leading-relaxed mb-3"><strong>Aproveitamento Estratégico:</strong> Direcionar o foco do profissional para projetos de inovação, como a estruturação do <em>Employer Branding</em> (Marca Empregadora) ou a análise de dados em <em>People Analytics</em>.</li>
+                         <li class="leading-relaxed"><strong>Cultura e Mentoria:</strong> Delegar a condução de integrações de novos funcionários (Onboarding) para aproveitar sua estabilidade emocional e engajamento, transmitindo uma energia positiva aos recém-chegados.</li>`
                     ) + gerarAccordion(
-                        'psi', 'Frente Psicológica',
-                        `<li><strong>Alinhamento de Carreira:</strong> Manter a rotina de reuniões de 1:1, priorizando discussões sobre desenvolvimento futuro.</li>`
+                        'psi', '🧠 2. Frente Psicológica (Prevenção e Mente)',
+                        `<li class="leading-relaxed"><strong>1:1 de Carreira:</strong> Manter a rotina de reuniões de alinhamento com a liderança, priorizando discussões sobre desenvolvimento e plano de carreira, demonstrando claramente o investimento da empresa no futuro do colaborador.</li>`
                     ) + gerarAccordion(
-                        'bem', 'Frente de Bem-Estar',
-                        `<li><strong>Incentivo à Prevenção:</strong> Reforçar o uso de plataformas de qualidade de vida parceiras da empresa.</li>
-                         <li><strong>Recompensa:</strong> Possível concessão de <em>Short Friday</em> como reforço positivo.</li>`
+                        'bem', '💆 3. Frente de Bem-Estar e Benefícios',
+                        `<li class="leading-relaxed mb-3"><strong>Incentivo à Qualidade de Vida:</strong> Reforçar a comunicação para que o profissional utilize as plataformas parceiras da empresa (como Gympass/Wellhub, ou convênios com nutricionistas e psicólogos preventivos).</li>
+                         <li class="leading-relaxed"><strong>Recompensa Operacional:</strong> Avaliar a concessão de <em>Short Friday</em> (saída antecipada na sexta-feira) como um reforço positivo (Behaviorismo) pelo desempenho sustentável entregue sem gerar adoecimento tático.</li>`
                     );
 
                 } else if (cargaTotal > limiteVerde && cargaTotal <= limiteAmarelo) {
@@ -249,20 +249,20 @@
                     titulo.classList.add('text-amarelo-alerta');
                     titulo.textContent = "Alerta: Fadiga por Compaixão";
                     pontos.textContent = cargaTotal + " pts";
-                    txtDiagnostico.innerHTML = `O nível de estresse de <strong>${nome}</strong> ${textoFrequencia} atingiu uma margem de atenção. Há risco do profissional iniciar atendimento em "modo automático" como defesa emocional.`;
+                    txtDiagnostico.innerHTML = `O nível de estresse percebido de <strong>${nome}</strong> ${textoFrequencia} atingiu uma margem de atenção. Há alto risco do profissional iniciar o atendimento em "modo automático", reduzindo a humanização e a escuta ativa como um mecanismo inconsciente de defesa emocional contra a sobrecarga.`;
                     
                     conteudoSanfona = gerarAccordion(
-                        'org', 'Frente Organizacional',
-                        `<li><strong>Bloco de Foco (Deep Work):</strong> Instituir períodos de "Porta Fechada" sem interrupções operacionais.</li>
-                         <li><strong>Rodízio de Front:</strong> Pausar a alocação deste profissional em novas demissões nos próximos dias.</li>`
+                        'org', '🛡️ 1. Frente Organizacional (Gestão do Trabalho)',
+                        `<li class="leading-relaxed mb-3"><strong>Deep Work (Bloco de Foco):</strong> Instituir pelo menos 2 períodos na semana de "Porta Fechada" (sem atendimento ao público corporativo, telefone ou chat para tirar dúvidas operacionais) permitindo o escoamento das pendências de forma ininterrupta.</li>
+                         <li class="leading-relaxed"><strong>Rodízio de Front:</strong> O gestor deve bloquear a agenda do profissional para a condução de novas demissões ou mediações de conflito sindical/interpessoal nos próximos dias, diluindo a carga com a equipe.</li>`
                     ) + gerarAccordion(
-                        'psi', 'Frente Psicológica',
-                        `<li><strong>Supervisão Emocional:</strong> Escuta ativa da liderança focada em acolhimento, sem pauta de metas.</li>
-                         <li><strong>Descompressão Tática:</strong> Participação em rodas de conversa seguras da equipe de RH.</li>`
+                        'psi', '🧠 2. Frente Psicológica (Prevenção e Mente)',
+                        `<li class="leading-relaxed mb-3"><strong>Supervisão Emocional:</strong> A liderança deve realizar uma escuta ativa de 30 minutos focada exclusivamente em acolhimento emocional. É expressamente proibido falar de metas, planilhas ou cobranças neste momento.</li>
+                         <li class="leading-relaxed"><strong>Grupos de Balint (Adaptação RH):</strong> Incentivar a participação em rodas de conversa seguras da própria equipe de RH para processamento coletivo da carga de casos difíceis, promovendo descompressão tática e aliviando a "solidão da decisão".</li>`
                     ) + gerarAccordion(
-                        'bem', 'Frente de Bem-Estar',
-                        `<li><strong>Pausas Ativas:</strong> Micro-pausas obrigatórias (10 min) a cada 2h de fechamento de folha.</li>
-                         <li><strong>Sala Zen/Descanso:</strong> Liberação de uso do espaço de descompressão durante o expediente.</li>`
+                        'bem', '💆 3. Frente de Bem-Estar e Benefícios',
+                        `<li class="leading-relaxed mb-3"><strong>Descompressão In Loco:</strong> Liberação documentada para uso da Sala Zen/Descanso da empresa durante o expediente e agendamento prioritário de sessão de <em>Quick Massage</em> corporativa (se houver o serviço).</li>
+                         <li class="leading-relaxed"><strong>Pausas Ativas Obrigatórias:</strong> A cada 2 horas de trabalho analítico pesado (como no fechamento de folha), o profissional deve realizar uma micro-pausa de 10 minutos totalmente desconectada de telas para alongamento e hidratação.</li>`
                     );
 
                 } else {
@@ -271,20 +271,20 @@
                     titulo.classList.add('text-vermelho-alerta');
                     titulo.textContent = "Risco Crítico de Burnout";
                     pontos.textContent = cargaTotal + " pts";
-                    txtDiagnostico.innerHTML = `<strong>ALERTA CLÍNICO:</strong> Sobrecarga extrema detectada em <strong>${nome}</strong> ${textoFrequencia}. Esgotamento de recursos internos para mediação. Risco iminente de afastamento ou erro crítico operacional.`;
+                    txtDiagnostico.innerHTML = `<strong>ALERTA CLÍNICO:</strong> Sobrecarga extrema e toxicidade detectada em <strong>${nome}</strong> ${textoFrequencia}. Há esgotamento total de recursos internos para mediação humana. O risco de afastamento médico psiquiátrico, erros graves na folha de pagamento ou geração de passivo trabalhista por condução inadequada é iminente.`;
                     
                     conteudoSanfona = gerarAccordion(
-                        'org', 'Frente Organizacional',
-                        `<li><strong>Afastamento do Front:</strong> Movimentação emergencial para o <em>Backoffice</em>. Zero contato com público interno.</li>
-                         <li><strong>Auditoria Estrutural:</strong> Notificar Diretoria. O setor necessita de contratações urgentes para diluição de carga.</li>`
+                        'org', '🛡️ 1. Frente Organizacional (Gestão do Trabalho)',
+                        `<li class="leading-relaxed mb-3"><strong>Afastamento Total do Front:</strong> Movimentação emergencial imediata. O profissional é retirado no mesmo dia de qualquer contato com o público, mediações ou demissões. Movimentação temporária em 100% para o <em>Backoffice</em> administrativo (planilhas e arquivos).</li>
+                         <li class="leading-relaxed"><strong>Auditoria Estrutural:</strong> Notificar a Diretoria Executiva sobre o estouro do <em>RH Headcount Ratio</em>. O setor demonstra necessidade de contratação com urgência para diluição da carga operacional que se tornou insustentável.</li>`
                     ) + gerarAccordion(
-                        'psi', 'Frente Psicológica',
-                        `<li><strong>Encaminhamento EAP:</strong> Acionar suporte psicológico financiado pela empresa imediatamente.</li>
-                         <li><strong>Debriefing de Trauma:</strong> Sessão guiada para processar a carga emocional absorvida recentemente.</li>`
+                        'psi', '🧠 2. Frente Psicológica (Prevenção e Mente)',
+                        `<li class="leading-relaxed mb-3"><strong>EAP Obrigatório (Apoio Psicológico):</strong> A liderança aciona o Programa de Apoio ao Empregado, garantindo o encaminhamento formal do profissional para sessões de psicoterapia custeadas pela empresa (via convênio ou plataformas como Vittude/Zenklub).</li>
+                         <li class="leading-relaxed"><strong>Debriefing de Trauma:</strong> Sessão de descompressão especializada guiada para ajudar o analista a processar e não internalizar "o trauma do outro", essencial após o atendimento de casos de assédio moral/sexual densos ou demissões em massa.</li>`
                     ) + gerarAccordion(
-                        'bem', 'Frente de Bem-Estar',
-                        `<li><strong>Day Off Imediato:</strong> Folga compensatória não descontada para frear o cortisol e focar na Higiene do Sono.</li>
-                         <li><strong>Desconexão Digital:</strong> Interrupção do acesso ao e-mail/WhatsApp corporativo durante o descanso.</li>`
+                        'bem', '💆 3. Frente de Bem-Estar e Benefícios',
+                        `<li class="leading-relaxed mb-3"><strong>Quebra de Ciclo (Day Off):</strong> Ação imediata para cortar a produção de cortisol. O profissional recebe uma folga compulsória não descontada (preferencialmente colada ao fim de semana) para focar na recuperação de sua Higiene do Sono.</li>
+                         <li class="leading-relaxed"><strong>Desconexão Digital Forçada:</strong> Durante o afastamento, a TI realiza o bloqueio sistêmico do acesso ao e-mail corporativo no celular pessoal e o colaborador é orientado a silenciar/sair temporariamente de grupos de WhatsApp da empresa, garantindo repouso real.</li>`
                     );
                 }
                 
@@ -297,12 +297,12 @@
         function gerarAccordion(id, titulo, itensLista) {
             return `
             <div class="border-b border-slate-200">
-                <button type="button" onclick="toggleAccordion('${id}')" class="w-full py-3.5 flex justify-between items-center text-left focus:outline-none group">
+                <button type="button" onclick="toggleAccordion('${id}')" class="w-full py-4 flex justify-between items-center text-left focus:outline-none group">
                     <span class="font-semibold text-sm text-slate-700 group-hover:text-slate-900 transition-colors">${titulo}</span>
                     <span id="icon-${id}" class="text-xl font-light text-slate-400 group-hover:text-slate-600 transition-colors">+</span>
                 </button>
                 <div id="content-${id}" class="accordion-content">
-                    <ul class="list-disc pl-5 pb-4 text-sm text-slate-600 space-y-2 pr-2">
+                    <ul class="list-disc pl-5 pb-5 text-sm text-slate-600 pr-2">
                         ${itensLista}
                     </ul>
                 </div>
