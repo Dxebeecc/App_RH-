@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -8,68 +7,64 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* CSS para animar a entrada do resultado */
+        /* Animação suave para o card de resultado */
         .resultado-card {
             transition: all 0.4s ease-in-out;
-            transform: scale(0.95);
+            transform: translateY(10px);
             opacity: 0;
             display: none;
         }
         .resultado-card.show {
-            transform: scale(1);
+            transform: translateY(0);
             opacity: 1;
             display: block;
         }
         
-        /* Cores temáticas para os diferentes níveis de risco */
-        .bg-verde-alerta { background-color: #f0fdf4; border-color: #22c55e; }
+        /* Cores temáticas para os diferentes níveis de risco (borda lateral mais grossa) */
+        .border-verde-alerta { border-color: #22c55e; }
         .text-verde-alerta { color: #166534; }
-        .bg-amarelo-alerta { background-color: #fffbeb; border-color: #f59e0b; }
+        
+        .border-amarelo-alerta { border-color: #f59e0b; }
         .text-amarelo-alerta { color: #92400e; }
-        .bg-vermelho-alerta { background-color: #fef2f2; border-color: #ef4444; }
+        
+        .border-vermelho-alerta { border-color: #ef4444; }
         .text-vermelho-alerta { color: #991b1b; }
         
-        /* Estilos refinados para as Frentes de Ação */
-        .frente-card { 
-            background-color: rgba(255, 255, 255, 0.7); 
-            border-radius: 0.5rem; 
-            padding: 1rem; 
-            margin-top: 1rem; 
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05); 
-            border-left: 4px solid currentColor;
+        /* Transição para a sanfona (accordion) */
+        .accordion-content {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
         }
-        .frente-titulo { 
-            font-weight: 700; 
-            display: flex; 
-            align-items: center; 
-            margin-bottom: 0.75rem; 
-            font-size: 1rem; 
-            opacity: 0.9;
+        .accordion-content.open {
+            max-height: 500px; /* valor alto o suficiente para caber o texto */
+            opacity: 1;
         }
     </style>
 </head>
-<body class="bg-slate-100 font-sans text-slate-800 antialiased min-h-screen flex items-center justify-center p-4">
+<body class="bg-slate-50 font-sans text-slate-800 antialiased min-h-screen flex items-center justify-center p-4">
 
-    <div class="max-w-2xl w-full bg-white rounded-2xl shadow-xl overflow-hidden">
+    <div class="max-w-2xl w-full bg-white rounded-xl shadow-lg overflow-hidden border border-slate-100">
         
-        <!-- Cabeçalho -->
+        <!-- Cabeçalho (Sleek & Clean) -->
         <div class="bg-slate-800 p-6 text-white text-center">
-            <h1 class="text-3xl font-bold tracking-tight">Cockpit: Guardião do RH</h1>
-            <p class="text-slate-300 mt-2 text-sm font-medium uppercase tracking-wider">Sistema de Monitoramento de Carga Cognitiva e Emocional</p>
+            <h1 class="text-2xl font-bold tracking-tight">Cockpit: Guardião do RH</h1>
+            <p class="text-slate-400 mt-1 text-xs font-medium uppercase tracking-wider">Monitoramento de Carga Cognitiva e Emocional</p>
         </div>
 
         <div class="p-6 md:p-8">
-            <form id="cockpitForm" class="space-y-6">
+            <form id="cockpitForm" class="space-y-5">
                 
-                <!-- Seção 1: Identificação e Período -->
+                <!-- Identificação e Período -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label for="nome" class="block text-sm font-semibold text-slate-700 mb-1">Nome do Profissional:</label>
-                        <input type="text" id="nome" placeholder="Ex: João Silva" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" required>
+                        <label for="nome" class="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Profissional Avaliado</label>
+                        <input type="text" id="nome" placeholder="Ex: João Silva" class="w-full px-3 py-2.5 rounded-lg border border-slate-300 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm" required>
                     </div>
                     <div>
-                        <label for="periodo" class="block text-sm font-semibold text-slate-700 mb-1">Período de Avaliação:</label>
-                        <select id="periodo" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white cursor-pointer">
+                        <label for="periodo" class="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Período de Análise</label>
+                        <select id="periodo" class="w-full px-3 py-2.5 rounded-lg border border-slate-300 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white cursor-pointer text-sm">
                             <option value="Semanal" selected>Semanal (Recomendado)</option>
                             <option value="Quinzenal">Quinzenal</option>
                             <option value="Mensal">Mensal</option>
@@ -77,94 +72,90 @@
                     </div>
                 </div>
 
-                <!-- Seção 2: Inputs de Carga -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <!-- Front de Choque (Emocional) -->
-                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 shadow-sm">
-                        <h3 class="text-sm font-bold text-slate-800 uppercase mb-4 flex items-center">
-                            <svg class="w-5 h-5 mr-2 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                            Carga Emocional
+                    <div class="bg-white p-4 rounded-xl border border-slate-200">
+                        <h3 class="text-xs font-bold text-slate-800 uppercase mb-3 flex items-center tracking-wide">
+                            <span class="w-2 h-2 rounded-full bg-red-500 mr-2"></span> Carga Emocional
                         </h3>
-                        <div class="space-y-4">
+                        <div class="space-y-3">
                             <div>
-                                <label for="demissoes" class="block text-sm font-medium text-slate-700 flex justify-between">
-                                    <span>Demissões Conduzidas</span> <span class="text-xs text-slate-500 font-bold">(Peso 5)</span>
+                                <label for="demissoes" class="block text-sm text-slate-700 flex justify-between">
+                                    <span>Demissões Conduzidas</span> <span class="text-xs text-slate-400">(Peso 5)</span>
                                 </label>
-                                <input type="number" id="demissoes" min="0" value="0" class="mt-1 w-full px-3 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-red-300 outline-none">
+                                <input type="number" id="demissoes" min="0" value="0" class="mt-1 w-full px-3 py-2 rounded-md border border-slate-200 focus:ring-1 focus:ring-red-400 outline-none text-sm bg-slate-50">
                             </div>
                             <div>
-                                <label for="conflitos" class="block text-sm font-medium text-slate-700 flex justify-between">
-                                    <span>Mediação de Conflitos/Assédio</span> <span class="text-xs text-slate-500 font-bold">(Peso 5)</span>
+                                <label for="conflitos" class="block text-sm text-slate-700 flex justify-between">
+                                    <span>Mediações de Conflito/Assédio</span> <span class="text-xs text-slate-400">(Peso 5)</span>
                                 </label>
-                                <input type="number" id="conflitos" min="0" value="0" class="mt-1 w-full px-3 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-red-300 outline-none">
+                                <input type="number" id="conflitos" min="0" value="0" class="mt-1 w-full px-3 py-2 rounded-md border border-slate-200 focus:ring-1 focus:ring-red-400 outline-none text-sm bg-slate-50">
                             </div>
                             <div>
-                                <label for="interrupcoes" class="block text-sm font-medium text-slate-700 flex justify-between">
-                                    <span>Atendimentos "Tira-Dúvidas"</span> <span class="text-xs text-slate-500 font-bold">(Peso 2)</span>
+                                <label for="interrupcoes" class="block text-sm text-slate-700 flex justify-between">
+                                    <span>Atendimentos Surpresa</span> <span class="text-xs text-slate-400">(Peso 2)</span>
                                 </label>
-                                <input type="number" id="interrupcoes" min="0" value="0" class="mt-1 w-full px-3 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-red-300 outline-none">
+                                <input type="number" id="interrupcoes" min="0" value="0" class="mt-1 w-full px-3 py-2 rounded-md border border-slate-200 focus:ring-1 focus:ring-red-400 outline-none text-sm bg-slate-50">
                             </div>
                         </div>
                     </div>
 
                     <!-- Fadiga Cognitiva (Operacional) -->
-                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 shadow-sm">
-                         <h3 class="text-sm font-bold text-slate-800 uppercase mb-4 flex items-center">
-                            <svg class="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                            Carga Cognitiva
+                    <div class="bg-white p-4 rounded-xl border border-slate-200">
+                         <h3 class="text-xs font-bold text-slate-800 uppercase mb-3 flex items-center tracking-wide">
+                            <span class="w-2 h-2 rounded-full bg-blue-500 mr-2"></span> Carga Cognitiva
                         </h3>
-                        <div class="space-y-4">
+                        <div class="space-y-3">
                             <div>
-                                <label for="vagas" class="block text-sm font-medium text-slate-700 flex justify-between">
-                                    <span>Processos Seletivos em Aberto</span> <span class="text-xs text-slate-500 font-bold">(Peso 3)</span>
+                                <label for="vagas" class="block text-sm text-slate-700 flex justify-between">
+                                    <span>Processos Seletivos (Vagas)</span> <span class="text-xs text-slate-400">(Peso 3)</span>
                                 </label>
-                                <input type="number" id="vagas" min="0" value="0" class="mt-1 w-full px-3 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-blue-300 outline-none">
+                                <input type="number" id="vagas" min="0" value="0" class="mt-1 w-full px-3 py-2 rounded-md border border-slate-200 focus:ring-1 focus:ring-blue-400 outline-none text-sm bg-slate-50">
                             </div>
                             <div>
-                                <label for="horasExtras" class="block text-sm font-medium text-slate-700 flex justify-between">
-                                    <span>Horas Extras Realizadas</span> <span class="text-xs text-slate-500 font-bold">(Peso 2)</span>
+                                <label for="horasExtras" class="block text-sm text-slate-700 flex justify-between">
+                                    <span>Horas Extras Realizadas</span> <span class="text-xs text-slate-400">(Peso 2)</span>
                                 </label>
-                                <input type="number" id="horasExtras" min="0" value="0" class="mt-1 w-full px-3 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-blue-300 outline-none">
+                                <input type="number" id="horasExtras" min="0" value="0" class="mt-1 w-full px-3 py-2 rounded-md border border-slate-200 focus:ring-1 focus:ring-blue-400 outline-none text-sm bg-slate-50">
                             </div>
                              <div>
-                                <label for="fechamento" class="block text-sm font-medium text-slate-700 flex justify-between">
-                                    <span>Fechamentos (Folha/Ponto)</span> <span class="text-xs text-slate-500 font-bold">(Peso 3)</span>
+                                <label for="fechamento" class="block text-sm text-slate-700 flex justify-between">
+                                    <span>Fechamentos (Folha/Ponto)</span> <span class="text-xs text-slate-400">(Peso 3)</span>
                                 </label>
-                                <input type="number" id="fechamento" min="0" value="0" class="mt-1 w-full px-3 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-blue-300 outline-none">
+                                <input type="number" id="fechamento" min="0" value="0" class="mt-1 w-full px-3 py-2 rounded-md border border-slate-200 focus:ring-1 focus:ring-blue-400 outline-none text-sm bg-slate-50">
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Botões -->
-                <div class="flex flex-col sm:flex-row gap-3">
-                    <button type="button" onclick="calcularCarga()" class="w-full sm:w-2/3 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition duration-200 ease-in-out">
-                        Gerar Plano de Ação Estratégico
+                <!-- Botões Refinados e Menores -->
+                <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                    <button type="button" onclick="calcularCarga()" class="w-full sm:w-auto flex-1 bg-slate-800 hover:bg-slate-700 text-white font-medium py-2.5 px-5 rounded-lg transition duration-200 ease-in-out text-sm shadow-sm">
+                        Gerar Diagnóstico
                     </button>
-                    <button type="reset" onclick="esconderResultado()" class="w-full sm:w-1/3 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-4 px-6 rounded-xl transition duration-200 ease-in-out">
-                        Nova Avaliação
+                    <button type="reset" onclick="esconderResultado()" class="w-full sm:w-auto bg-white border border-slate-300 hover:bg-slate-50 text-slate-600 font-medium py-2.5 px-5 rounded-lg transition duration-200 ease-in-out text-sm">
+                        Nova Análise
                     </button>
                 </div>
             </form>
 
             <!-- Área de Resultado e Diagnóstico -->
-            <div id="resultadoBox" class="resultado-card mt-8 border-l-8 rounded-r-xl p-6">
-                <div class="flex flex-col md:flex-row md:items-center justify-between mb-4 border-b pb-4 border-current border-opacity-20 gap-2">
-                    <h2 id="resultadoTitulo" class="text-xl md:text-2xl font-black uppercase tracking-wide"></h2>
-                    <span id="resultadoPontos" class="text-3xl md:text-4xl font-black md:text-right"></span>
+            <div id="resultadoBox" class="resultado-card mt-8 border-l-4 bg-white border border-slate-100 rounded-r-lg shadow-md p-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-4 pb-4 border-b border-slate-100 gap-2">
+                    <h2 id="resultadoTitulo" class="text-lg md:text-xl font-bold uppercase tracking-wide"></h2>
+                    <span id="resultadoPontos" class="text-2xl md:text-3xl font-light text-slate-400"></span>
                 </div>
                 
                 <div class="space-y-6">
                     <!-- Diagnóstico Clínico -->
                     <div>
-                        <h4 class="text-sm uppercase font-bold opacity-75 mb-1">Diagnóstico Clínico-Organizacional (<span id="spanPeriodo"></span>)</h4>
-                        <p id="textoDiagnostico" class="font-medium text-base md:text-lg leading-relaxed"></p>
+                        <p id="textoDiagnostico" class="font-normal text-slate-600 text-sm md:text-base leading-relaxed"></p>
                     </div>
                     
-                    <!-- Plano de Intervenção (As 3 Frentes) -->
-                    <div class="mt-6">
-                        <h4 class="text-sm uppercase font-black opacity-75 mb-3 border-b border-current border-opacity-20 pb-2">Plano de Intervenção Estratégica (3 Frentes)</h4>
-                        <div id="textoAtitude" class="space-y-2">
+                    <!-- Plano de Intervenção (Estilo Accordion/Sanfona) -->
+                    <div class="mt-4">
+                        <h4 class="text-xs uppercase font-bold text-slate-400 mb-2 tracking-wider">Plano de Intervenção Estratégica</h4>
+                        <div id="textoAtitude" class="space-y-1">
                             <!-- Injetado via JS -->
                         </div>
                     </div>
@@ -172,15 +163,25 @@
             </div>
         </div>
         
-        <!-- Rodapé Acadêmico -->
-        <div class="bg-slate-50 text-center p-4 text-xs text-slate-500 border-t font-semibold">
-            Projeto Integrado - Gestão Humanizada: "Quem cuida de quem cuida?"
-        </div>
     </div>
 
     <script>
+        // Função para abrir/fechar a sanfona (accordion)
+        function toggleAccordion(id) {
+            const content = document.getElementById('content-' + id);
+            const icon = document.getElementById('icon-' + id);
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                icon.textContent = '+';
+            } else {
+                content.classList.add('open');
+                icon.textContent = '−'; // sinal de menos real
+            }
+        }
+
         function calcularCarga() {
-            // 1. Coleta de Dados
+            // Coleta de Dados
             const nomeInput = document.getElementById('nome').value.trim();
             const nome = nomeInput !== "" ? nomeInput : "O(a) Profissional";
             const periodoSelecionado = document.getElementById('periodo').value;
@@ -192,23 +193,8 @@
             const horasExtras = parseInt(document.getElementById('horasExtras').value) || 0;
             const fechamento = parseInt(document.getElementById('fechamento').value) || 0;
 
-            // 2. Pesos das Atividades
-            const pesoDemissao = 5;
-            const pesoConflito = 5;
-            const pesoInterrupcao = 2;
-            const pesoVaga = 3;
-            const pesoHoraExtra = 2;
-            const pesoFechamento = 3;
+            const cargaTotal = (demissoes * 5) + (conflitos * 5) + (interrupcoes * 2) + (vagas * 3) + (horasExtras * 2) + (fechamento * 3);
 
-            // 3. Cálculo Total
-            const cargaTotal = (demissoes * pesoDemissao) + 
-                               (conflitos * pesoConflito) + 
-                               (interrupcoes * pesoInterrupcao) +
-                               (vagas * pesoVaga) +
-                               (horasExtras * pesoHoraExtra) + 
-                               (fechamento * pesoFechamento);
-
-            // 4. Inteligência de Período (Tolerância maior para períodos mais longos)
             let multiplicadorTolerancia = 1;
             let textoFrequencia = "nesta semana";
 
@@ -220,128 +206,115 @@
                 textoFrequencia = "neste mês";
             }
 
-            // 5. Limites das Zonas
             const limiteVerde = 35 * multiplicadorTolerancia;
             const limiteAmarelo = 65 * multiplicadorTolerancia;
 
-            // 6. Manipulação do DOM
             const box = document.getElementById('resultadoBox');
             const titulo = document.getElementById('resultadoTitulo');
             const pontos = document.getElementById('resultadoPontos');
             const txtDiagnostico = document.getElementById('textoDiagnostico');
             const txtAtitude = document.getElementById('textoAtitude');
-            const spanPeriodo = document.getElementById('spanPeriodo');
 
-            // Limpeza visual
-            box.classList.remove('bg-verde-alerta', 'text-verde-alerta', 'bg-amarelo-alerta', 'text-amarelo-alerta', 'bg-vermelho-alerta', 'text-vermelho-alerta', 'show');
-            spanPeriodo.textContent = periodoSelecionado;
+            // Limpeza visual das cores de borda
+            box.classList.remove('border-verde-alerta', 'border-amarelo-alerta', 'border-vermelho-alerta', 'show');
+            titulo.classList.remove('text-verde-alerta', 'text-amarelo-alerta', 'text-vermelho-alerta');
 
-            // 7. Lógica de Preenchimento das Frentes
             setTimeout(() => {
+                let conteudoSanfona = '';
+
                 if (cargaTotal <= limiteVerde) {
                     // ZONA VERDE
-                    box.classList.add('bg-verde-alerta', 'text-verde-alerta');
+                    box.classList.add('border-verde-alerta');
+                    titulo.classList.add('text-verde-alerta');
                     titulo.textContent = "Equilíbrio Operacional";
                     pontos.textContent = cargaTotal + " pts";
-                    txtDiagnostico.innerHTML = `<strong>${nome}</strong> apresenta níveis saudáveis de absorção cognitiva e emocional ${textoFrequencia}. O risco psicossocial é baixo. A empatia está preservada e a mente encontra-se "limpa" para tomadas de decisão.`;
+                    txtDiagnostico.innerHTML = `Com base na avaliação ${periodoSelecionado.toLowerCase()}, <strong>${nome}</strong> apresenta níveis saudáveis de absorção cognitiva e emocional. A empatia encontra-se preservada e o risco de esgotamento é baixo.`;
                     
-                    txtAtitude.innerHTML = `
-                        <div class="frente-card text-verde-alerta">
-                            <h5 class="frente-titulo">🛡️ 1. Frente Organizacional (Gestão do Trabalho)</h5>
-                            <ul class="list-disc pl-5 text-sm space-y-1">
-                                <li><strong>Aproveitamento Estratégico:</strong> Direcionar o foco do profissional para projetos de inovação, como <em>Employer Branding</em> ou análise de dados em <em>People Analytics</em>.</li>
-                                <li><strong>Cultura e Mentoria:</strong> Delegar a condução de integrações de novos funcionários (Onboarding) para aproveitar sua estabilidade emocional e engajamento.</li>
-                            </ul>
-                        </div>
-                        <div class="frente-card text-verde-alerta">
-                            <h5 class="frente-titulo">🧠 2. Frente Psicológica (Prevenção e Mente)</h5>
-                            <ul class="list-disc pl-5 text-sm space-y-1">
-                                <li><strong>1:1 de Carreira:</strong> Manter a rotina de alinhamento com a liderança, priorizando discussões sobre desenvolvimento e plano de carreira, demonstrando investimento no futuro do colaborador.</li>
-                            </ul>
-                        </div>
-                        <div class="frente-card text-verde-alerta">
-                            <h5 class="frente-titulo">💆 3. Frente de Bem-Estar e Benefícios (Corpo e Ambiente)</h5>
-                            <ul class="list-disc pl-5 text-sm space-y-1">
-                                <li><strong>Incentivo à Qualidade de Vida:</strong> Reforçar o uso de plataformas parceiras (Gympass/Wellhub, auxílio psicológico preventivo).</li>
-                                <li><strong>Recompensa Operacional:</strong> Concessão de <em>Short Friday</em> (saída antecipada na sexta-feira) como reforço positivo pelo desempenho sustentável e sem adoecimento.</li>
-                            </ul>
-                        </div>
-                    `;
+                    conteudoSanfona = gerarAccordion(
+                        'org', 'Frente Organizacional',
+                        `<li><strong>Aproveitamento Estratégico:</strong> Direcionar o foco do profissional para projetos de inovação (ex: <em>Employer Branding</em> ou <em>People Analytics</em>).</li>
+                         <li><strong>Cultura e Mentoria:</strong> Delegar a condução de integrações de novos funcionários (Onboarding).</li>`
+                    ) + gerarAccordion(
+                        'psi', 'Frente Psicológica',
+                        `<li><strong>Alinhamento de Carreira:</strong> Manter a rotina de reuniões de 1:1, priorizando discussões sobre desenvolvimento futuro.</li>`
+                    ) + gerarAccordion(
+                        'bem', 'Frente de Bem-Estar',
+                        `<li><strong>Incentivo à Prevenção:</strong> Reforçar o uso de plataformas de qualidade de vida parceiras da empresa.</li>
+                         <li><strong>Recompensa:</strong> Possível concessão de <em>Short Friday</em> como reforço positivo.</li>`
+                    );
 
                 } else if (cargaTotal > limiteVerde && cargaTotal <= limiteAmarelo) {
                     // ZONA AMARELA
-                    box.classList.add('bg-amarelo-alerta', 'text-amarelo-alerta');
+                    box.classList.add('border-amarelo-alerta');
+                    titulo.classList.add('text-amarelo-alerta');
                     titulo.textContent = "Alerta: Fadiga por Compaixão";
                     pontos.textContent = cargaTotal + " pts";
-                    txtDiagnostico.innerHTML = `O nível de estresse percebido de <strong>${nome}</strong> está no limite ${textoFrequencia}. Há alto risco do profissional entrar no "modo automático", reduzindo a humanização nos atendimentos como um mecanismo de defesa emocional.`;
+                    txtDiagnostico.innerHTML = `O nível de estresse de <strong>${nome}</strong> ${textoFrequencia} atingiu uma margem de atenção. Há risco do profissional iniciar atendimento em "modo automático" como defesa emocional.`;
                     
-                    txtAtitude.innerHTML = `
-                        <div class="frente-card text-amarelo-alerta">
-                            <h5 class="frente-titulo">🛡️ 1. Frente Organizacional (Gestão do Trabalho)</h5>
-                            <ul class="list-disc pl-5 text-sm space-y-1">
-                                <li><strong>Deep Work (Bloco de Foco):</strong> Instituir 2 períodos na semana de "Porta Fechada" (sem atendimento ao público corporativo ou interrupções) para escoamento das pendências operacionais.</li>
-                                <li><strong>Rodízio de Front:</strong> Bloquear a agenda do profissional para a condução de novas demissões ou mediações de conflito nos próximos dias.</li>
-                            </ul>
-                        </div>
-                        <div class="frente-card text-amarelo-alerta">
-                            <h5 class="frente-titulo">🧠 2. Frente Psicológica (Prevenção e Mente)</h5>
-                            <ul class="list-disc pl-5 text-sm space-y-1">
-                                <li><strong>Supervisão Emocional:</strong> Liderança deve realizar uma escuta ativa de 30 minutos focada exclusivamente em acolhimento emocional (proibido falar de metas/planilhas).</li>
-                                <li><strong>Grupos de Balint (Adaptação RH):</strong> Incentivar a participação em rodas de conversa seguras da equipe para processamento coletivo da carga de casos difíceis (descompressão tática).</li>
-                            </ul>
-                        </div>
-                        <div class="frente-card text-amarelo-alerta">
-                            <h5 class="frente-titulo">💆 3. Frente de Bem-Estar e Benefícios (Corpo e Ambiente)</h5>
-                            <ul class="list-disc pl-5 text-sm space-y-1">
-                                <li><strong>Descompressão In Loco:</strong> Liberação de uso da Sala Zen/Descanso durante o expediente e agendamento prioritário de sessão de <em>Quick Massage</em> corporativa.</li>
-                                <li><strong>Pausas Ativas:</strong> Obrigatoriedade de micro-pausas (desconexão de telas por 10 min) a cada 2h de trabalho analítico pesado.</li>
-                            </ul>
-                        </div>
-                    `;
+                    conteudoSanfona = gerarAccordion(
+                        'org', 'Frente Organizacional',
+                        `<li><strong>Bloco de Foco (Deep Work):</strong> Instituir períodos de "Porta Fechada" sem interrupções operacionais.</li>
+                         <li><strong>Rodízio de Front:</strong> Pausar a alocação deste profissional em novas demissões nos próximos dias.</li>`
+                    ) + gerarAccordion(
+                        'psi', 'Frente Psicológica',
+                        `<li><strong>Supervisão Emocional:</strong> Escuta ativa da liderança focada em acolhimento, sem pauta de metas.</li>
+                         <li><strong>Descompressão Tática:</strong> Participação em rodas de conversa seguras da equipe de RH.</li>`
+                    ) + gerarAccordion(
+                        'bem', 'Frente de Bem-Estar',
+                        `<li><strong>Pausas Ativas:</strong> Micro-pausas obrigatórias (10 min) a cada 2h de fechamento de folha.</li>
+                         <li><strong>Sala Zen/Descanso:</strong> Liberação de uso do espaço de descompressão durante o expediente.</li>`
+                    );
 
                 } else {
                     // ZONA VERMELHA
-                    box.classList.add('bg-vermelho-alerta', 'text-vermelho-alerta');
+                    box.classList.add('border-vermelho-alerta');
+                    titulo.classList.add('text-vermelho-alerta');
                     titulo.textContent = "Risco Crítico de Burnout";
                     pontos.textContent = cargaTotal + " pts";
-                    txtDiagnostico.innerHTML = `<strong>ALERTA VERMELHO.</strong> Sobrecarga tóxica detectada em <strong>${nome}</strong> ${textoFrequencia}. Esgotamento total dos recursos internos para lidar com o público. Risco iminente de afastamento clínico, erros graves em processos (ex: folha) ou passivo trabalhista por falta de tato.`;
+                    txtDiagnostico.innerHTML = `<strong>ALERTA CLÍNICO:</strong> Sobrecarga extrema detectada em <strong>${nome}</strong> ${textoFrequencia}. Esgotamento de recursos internos para mediação. Risco iminente de afastamento ou erro crítico operacional.`;
                     
-                    txtAtitude.innerHTML = `
-                        <div class="frente-card text-vermelho-alerta">
-                            <h5 class="frente-titulo">🛡️ 1. Frente Organizacional (Gestão do Trabalho)</h5>
-                            <ul class="list-disc pl-5 text-sm space-y-1">
-                                <li><strong>Afastamento Total do Front:</strong> Movimentação emergencial imediata de qualquer contato com o público interno. Movimentar 100% para o <em>Backoffice</em> administrativo.</li>
-                                <li><strong>Auditoria Estrutural:</strong> Notificar Diretoria sobre o estouro do <em>RH Headcount Ratio</em>. Necessidade de contratação urgente para diluição da carga do setor.</li>
-                            </ul>
-                        </div>
-                        <div class="frente-card text-vermelho-alerta">
-                            <h5 class="frente-titulo">🧠 2. Frente Psicológica (Prevenção e Mente)</h5>
-                            <ul class="list-disc pl-5 text-sm space-y-1">
-                                <li><strong>EAP Obrigatório (Apoio Psicológico):</strong> Encaminhamento formal para o Programa de Apoio ao Empregado (sessões de psicoterapia financiadas pela empresa).</li>
-                                <li><strong>Debriefing de Trauma:</strong> Sessão de descompressão especializada com o gestor ou consultor para processar "o trauma do outro" em casos de demissões traumáticas ou assédio.</li>
-                            </ul>
-                        </div>
-                        <div class="frente-card text-vermelho-alerta">
-                            <h5 class="frente-titulo">💆 3. Frente de Bem-Estar e Benefícios (Corpo e Ambiente)</h5>
-                            <ul class="list-disc pl-5 text-sm space-y-1">
-                                <li><strong>Quebra de Ciclo (Day Off):</strong> Concessão imediata de folga compensatória não descontada para frear a produção de cortisol e priorizar a Higiene do Sono.</li>
-                                <li><strong>Desconexão Digital Forçada:</strong> Bloqueio sistêmico do acesso ao e-mail corporativo no celular pessoal e desativação temporária em grupos de WhatsApp corporativos para garantir repouso real.</li>
-                            </ul>
-                        </div>
-                    `;
+                    conteudoSanfona = gerarAccordion(
+                        'org', 'Frente Organizacional',
+                        `<li><strong>Afastamento do Front:</strong> Movimentação emergencial para o <em>Backoffice</em>. Zero contato com público interno.</li>
+                         <li><strong>Auditoria Estrutural:</strong> Notificar Diretoria. O setor necessita de contratações urgentes para diluição de carga.</li>`
+                    ) + gerarAccordion(
+                        'psi', 'Frente Psicológica',
+                        `<li><strong>Encaminhamento EAP:</strong> Acionar suporte psicológico financiado pela empresa imediatamente.</li>
+                         <li><strong>Debriefing de Trauma:</strong> Sessão guiada para processar a carga emocional absorvida recentemente.</li>`
+                    ) + gerarAccordion(
+                        'bem', 'Frente de Bem-Estar',
+                        `<li><strong>Day Off Imediato:</strong> Folga compensatória não descontada para frear o cortisol e focar na Higiene do Sono.</li>
+                         <li><strong>Desconexão Digital:</strong> Interrupção do acesso ao e-mail/WhatsApp corporativo durante o descanso.</li>`
+                    );
                 }
                 
-                // Mostrar os resultados suavemente
+                txtAtitude.innerHTML = conteudoSanfona;
                 box.classList.add('show');
             }, 50);
+        }
+
+        // Função auxiliar para criar a estrutura HTML de cada item da sanfona
+        function gerarAccordion(id, titulo, itensLista) {
+            return `
+            <div class="border-b border-slate-200">
+                <button type="button" onclick="toggleAccordion('${id}')" class="w-full py-3.5 flex justify-between items-center text-left focus:outline-none group">
+                    <span class="font-semibold text-sm text-slate-700 group-hover:text-slate-900 transition-colors">${titulo}</span>
+                    <span id="icon-${id}" class="text-xl font-light text-slate-400 group-hover:text-slate-600 transition-colors">+</span>
+                </button>
+                <div id="content-${id}" class="accordion-content">
+                    <ul class="list-disc pl-5 pb-4 text-sm text-slate-600 space-y-2 pr-2">
+                        ${itensLista}
+                    </ul>
+                </div>
+            </div>`;
         }
 
         function esconderResultado() {
             const box = document.getElementById('resultadoBox');
             box.classList.remove('show');
             setTimeout(() => {
-                box.classList.remove('bg-verde-alerta', 'text-verde-alerta', 'bg-amarelo-alerta', 'text-amarelo-alerta', 'bg-vermelho-alerta', 'text-vermelho-alerta');
-            }, 400); // tempo para aguardar a transição de CSS sumir
+                box.classList.remove('border-verde-alerta', 'border-amarelo-alerta', 'border-vermelho-alerta');
+            }, 400); 
         }
     </script>
 </body>
