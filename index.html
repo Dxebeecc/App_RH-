@@ -74,16 +74,16 @@
 </head>
 <body class="text-wh-text antialiased min-h-screen flex items-start justify-center p-4 sm:p-8">
 
-    <!-- Container Principal (Sem fundo branco agressivo, integrado ao body) -->
+    <!-- Container Principal -->
     <div class="max-w-3xl w-full">
         
         <!-- CABEÇALHO (Estilo Plataforma Wellness) -->
         <div class="pt-4 pb-8 flex flex-col sm:flex-row items-center sm:justify-between text-center sm:text-left gap-4">
             <div class="flex items-center space-x-4">
-                <!-- Logo: Escudo Abstrato -->
+                <!-- Novo Logo: Pessoas/RH -->
                 <div class="w-14 h-14 bg-wh-primary/10 rounded-2xl flex items-center justify-center text-wh-primary">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                     </svg>
                 </div>
                 <div>
@@ -195,7 +195,7 @@
                     </div>
                 </div>
 
-                <!-- Botões de Ação (Arredondados como no Wellhub) -->
+                <!-- Botões de Ação -->
                 <div class="flex flex-col sm:flex-row gap-4 pt-6">
                     <button type="button" onclick="calcularCarga()" class="w-full sm:w-2/3 bg-wh-primary hover:bg-wh-primaryHover text-white font-bold text-[15px] py-4 px-6 rounded-full transition duration-300 ease-in-out shadow-[0_8px_20px_rgba(214,59,96,0.3)] hover:shadow-[0_10px_25px_rgba(214,59,96,0.4)] hover:-translate-y-0.5 flex justify-center items-center">
                         Gerar Diagnóstico Avançado
@@ -206,25 +206,25 @@
                 </div>
             </form>
 
-            <!-- ================= ÁREA DE RESULTADO (Clean & Premium) ================= -->
-            <div id="resultadoBox" class="resultado-card mt-12 bg-white rounded-[32px] shadow-[0_15px_60px_rgba(0,0,0,0.06)] overflow-hidden">
+            <!-- ================= ÁREA DE RESULTADO (Minimalista & Premium) ================= -->
+            <div id="resultadoBox" class="resultado-card mt-12 bg-white rounded-[32px] shadow-[0_10px_40px_rgba(0,0,0,0.05)] overflow-hidden border border-black/5">
                 
                 <!-- Cabeçalho Dinâmico do Laudo -->
-                <div id="headerLaudo" class="p-8 lg:p-10 flex flex-col md:flex-row items-center md:items-start justify-between gap-8 transition-colors duration-500 bg-white">
+                <div id="headerLaudo" class="p-8 lg:p-10 flex flex-col md:flex-row items-center md:items-start justify-between gap-6 transition-colors duration-500 bg-white border-b border-black/5">
                     
-                    <!-- Lado Esquerdo: Textos e Nota -->
+                    <!-- Lado Esquerdo: Textos e Nota (Menores e Elegantes) -->
                     <div class="w-full md:w-1/2 text-center md:text-left">
-                        <span class="text-[11px] font-extrabold uppercase tracking-widest opacity-50 mb-2 block text-wh-text">Status da Avaliação</span>
-                        <h2 id="resultadoTitulo" class="text-3xl lg:text-4xl font-black uppercase tracking-tight mb-2 text-wh-accent"></h2>
+                        <span class="text-[10px] font-extrabold uppercase tracking-widest opacity-60 mb-2 block text-wh-text">Status da Avaliação</span>
+                        <h2 id="resultadoTitulo" class="text-2xl lg:text-3xl font-extrabold uppercase tracking-tight mb-2 text-wh-accent"></h2>
                         <div class="flex items-baseline justify-center md:justify-start gap-1">
-                            <span id="resultadoPontos" class="text-6xl font-black tracking-tighter text-wh-accent"></span>
-                            <span class="text-lg font-bold opacity-60 text-wh-accent">pts</span>
+                            <span id="resultadoPontos" class="text-4xl lg:text-5xl font-black tracking-tighter text-wh-accent"></span>
+                            <span class="text-sm font-bold opacity-60 text-wh-accent">pts</span>
                         </div>
                     </div>
 
-                    <!-- Lado Direito: Régua Progressiva e Marcador Consertado -->
-                    <div class="w-full md:w-1/2 max-w-sm mt-4 md:mt-0">
-                        <div class="flex justify-between text-[11px] uppercase font-extrabold opacity-60 mb-3 px-1 tracking-widest text-wh-text">
+                    <!-- Lado Direito: Régua Progressiva (Com Gradiente) -->
+                    <div class="w-full md:w-1/2 max-w-sm mt-2 md:mt-0">
+                        <div class="flex justify-between text-[9px] uppercase font-extrabold opacity-50 mb-2 px-1 tracking-widest text-wh-text">
                             <span>Equilíbrio</span>
                             <span>Alerta</span>
                             <span>Crítico</span>
@@ -232,35 +232,33 @@
                         
                         <!-- Container Relativo para o Marcador -->
                         <div class="relative w-full">
-                            <!-- Pista de Cores -->
-                            <div class="h-4 rounded-full overflow-hidden flex shadow-inner bg-slate-100">
-                                <div class="h-full bg-[#10b981]" style="width: 33.33%"></div>
-                                <div class="h-full bg-[#f59e0b]" style="width: 29.17%"></div>
-                                <div class="h-full bg-[#ef4444]" style="width: 37.5%"></div>
+                            <!-- Pista de Cores com Gradiente Suave -->
+                            <div class="h-2.5 rounded-full overflow-hidden flex shadow-inner bg-slate-100">
+                                <div class="w-full h-full bg-gradient-to-r from-emerald-400 via-amber-400 to-rose-500"></div>
                             </div>
                             
-                            <!-- O Marcador Centralizado -->
-                            <div id="marcadorBarra" class="marcador-progresso absolute top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white border-[4px] border-wh-accent shadow-[0_4px_10px_rgba(0,0,0,0.2)]" style="left: 0%; margin-left: -12px;"></div>
+                            <!-- O Marcador Centralizado (Mais delicado) -->
+                            <div id="marcadorBarra" class="marcador-progresso absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white border-[3px] border-wh-accent shadow-[0_2px_8px_rgba(0,0,0,0.15)]" style="left: 0%; margin-left: -8px;"></div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Corpo do Laudo -->
-                <div class="p-8 lg:p-10 pt-0 lg:pt-0 bg-white">
+                <div class="p-8 lg:p-10 bg-white">
                     
-                    <!-- Diagnóstico Clínico -->
-                    <div id="boxDiagnosticoBg" class="p-6 rounded-2xl border transition-colors duration-500 mt-2 mb-8 bg-wh-bg border-black/5">
-                        <h4 class="text-[11px] uppercase font-extrabold mb-3 tracking-widest flex items-center opacity-70 text-wh-accent">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    <!-- Diagnóstico Clínico (Fundo limpo) -->
+                    <div class="mb-10">
+                        <h4 class="text-[10px] uppercase font-extrabold mb-3 tracking-widest flex items-center opacity-50 text-wh-text">
+                            <svg class="w-3.5 h-3.5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                             Parecer Técnico (<span id="spanPeriodo"></span>)
                         </h4>
-                        <p id="textoDiagnostico" class="font-semibold text-[15px] leading-relaxed text-wh-accent"></p>
+                        <p id="textoDiagnostico" class="font-medium text-[14px] leading-relaxed text-wh-text/90"></p>
                     </div>
                     
                     <!-- Plano de Intervenção (Accordion) -->
                     <div>
-                        <h4 class="text-sm uppercase font-black text-wh-accent mb-5 tracking-widest">
-                            Plano de Intervenção Estratégica
+                        <h4 class="text-[11px] uppercase font-extrabold text-wh-text/50 mb-5 tracking-widest border-b border-black/5 pb-2">
+                            Plano de Intervenção Sugerido
                         </h4>
                         <div id="textoAtitude" class="space-y-3">
                             <!-- Injetado via JS -->
@@ -343,16 +341,14 @@
             const headerLaudo = document.getElementById('headerLaudo');
             const titulo = document.getElementById('resultadoTitulo');
             const pontos = document.getElementById('resultadoPontos');
-            const boxDiagnosticoBg = document.getElementById('boxDiagnosticoBg');
             const txtDiagnostico = document.getElementById('textoDiagnostico');
             const txtAtitude = document.getElementById('textoAtitude');
             const marcador = document.getElementById('marcadorBarra');
             const spanPeriodo = document.getElementById('spanPeriodo');
 
             // Limpeza visual
-            const resetClasses = ['bg-[#ecfdf5]', 'bg-[#fffbeb]', 'bg-[#fef2f2]', 'text-[#047857]', 'text-[#b45309]', 'text-[#be123c]', 'border-[#a7f3d0]', 'border-[#fde68a]', 'border-[#fecdd3]'];
+            const resetClasses = ['bg-[#ecfdf5]', 'bg-[#fffbeb]', 'bg-[#fef2f2]', 'text-[#047857]', 'text-[#b45309]', 'text-[#be123c]'];
             headerLaudo.classList.remove(...resetClasses);
-            boxDiagnosticoBg.classList.remove(...resetClasses);
             titulo.classList.remove('text-[#047857]', 'text-[#b45309]', 'text-[#be123c]', 'text-wh-accent');
             pontos.classList.remove('text-[#047857]', 'text-[#b45309]', 'text-[#be123c]', 'text-wh-accent');
             box.classList.remove('show');
@@ -369,7 +365,6 @@
                     headerLaudo.classList.add('bg-[#ecfdf5]', 'text-[#047857]');
                     titulo.classList.add('text-[#047857]');
                     pontos.classList.add('text-[#047857]');
-                    boxDiagnosticoBg.classList.add('bg-[#ecfdf5]', 'border-[#a7f3d0]', 'text-[#047857]');
                     
                     titulo.textContent = "Equilíbrio Operacional";
                     pontos.textContent = cargaTotal;
@@ -377,14 +372,14 @@
                     
                     conteudoSanfona = gerarAccordion(
                         'org', '🛡️ 1. Frente Organizacional',
-                        `<li class="leading-relaxed mb-3"><strong>Aproveitamento Estratégico:</strong> Direcionar o foco do profissional para projetos de inovação, como a estruturação do <em>Employer Branding</em> (Marca Empregadora) ou a análise de dados em <em>People Analytics</em>.</li>
+                        `<li class="leading-relaxed mb-2"><strong>Aproveitamento Estratégico:</strong> Direcionar o foco do profissional para projetos de inovação, como a estruturação do <em>Employer Branding</em> (Marca Empregadora) ou a análise de dados em <em>People Analytics</em>.</li>
                          <li class="leading-relaxed"><strong>Cultura e Mentoria:</strong> Delegar a condução de integrações de novos funcionários (Onboarding) para aproveitar sua estabilidade emocional e engajamento, transmitindo uma energia positiva aos recém-chegados.</li>`
                     ) + gerarAccordion(
                         'psi', '🧠 2. Frente Psicológica',
                         `<li class="leading-relaxed"><strong>1:1 de Carreira:</strong> Manter a rotina de reuniões de alinhamento com a liderança, priorizando discussões sobre desenvolvimento e plano de carreira, demonstrando claramente o investimento da empresa no futuro do colaborador.</li>`
                     ) + gerarAccordion(
                         'bem', '💆 3. Frente de Bem-Estar e Benefícios',
-                        `<li class="leading-relaxed mb-3"><strong>Incentivo à Qualidade de Vida:</strong> Reforçar a comunicação para que o profissional utilize as plataformas parceiras da empresa (como Gympass/Wellhub, ou convênios com nutricionistas e psicólogos preventivos).</li>
+                        `<li class="leading-relaxed mb-2"><strong>Incentivo à Qualidade de Vida:</strong> Reforçar a comunicação para que o profissional utilize as plataformas parceiras da empresa (como Gympass/Wellhub, ou convênios com nutricionistas e psicólogos preventivos).</li>
                          <li class="leading-relaxed"><strong>Recompensa Operacional:</strong> Avaliar a concessão de <em>Short Friday</em> (saída antecipada na sexta-feira) como um reforço positivo (Behaviorismo) pelo desempenho sustentável entregue.</li>`
                     );
 
@@ -393,7 +388,6 @@
                     headerLaudo.classList.add('bg-[#fffbeb]', 'text-[#b45309]');
                     titulo.classList.add('text-[#b45309]');
                     pontos.classList.add('text-[#b45309]');
-                    boxDiagnosticoBg.classList.add('bg-[#fffbeb]', 'border-[#fde68a]', 'text-[#b45309]');
                     
                     titulo.textContent = "Alerta: Fadiga por Compaixão";
                     pontos.textContent = cargaTotal;
@@ -401,15 +395,15 @@
                     
                     conteudoSanfona = gerarAccordion(
                         'org', '🛡️ 1. Frente Organizacional',
-                        `<li class="leading-relaxed mb-3"><strong>Deep Work (Bloco de Foco):</strong> Instituir pelo menos 2 períodos na semana de "Porta Fechada" (sem atendimento ao público ou interrupções operacionais) permitindo o escoamento das pendências.</li>
+                        `<li class="leading-relaxed mb-2"><strong>Deep Work (Bloco de Foco):</strong> Instituir pelo menos 2 períodos na semana de "Porta Fechada" (sem atendimento ao público ou interrupções operacionais) permitindo o escoamento das pendências.</li>
                          <li class="leading-relaxed"><strong>Rodízio de Front:</strong> O gestor deve bloquear a agenda do profissional para a condução de novas demissões ou mediações de conflito nos próximos dias, diluindo a carga com a equipe.</li>`
                     ) + gerarAccordion(
                         'psi', '🧠 2. Frente Psicológica',
-                        `<li class="leading-relaxed mb-3"><strong>Supervisão Emocional:</strong> A liderança deve realizar uma escuta ativa de 30 minutos focada exclusivamente em acolhimento emocional. É expressamente proibido falar de metas neste momento.</li>
+                        `<li class="leading-relaxed mb-2"><strong>Supervisão Emocional:</strong> A liderança deve realizar uma escuta ativa de 30 minutos focada exclusivamente em acolhimento emocional. É expressamente proibido falar de metas neste momento.</li>
                          <li class="leading-relaxed"><strong>Grupos de Balint (Adaptação RH):</strong> Incentivar a participação em rodas de conversa seguras da própria equipe para processamento coletivo da carga de casos difíceis, aliviando a "solidão da decisão".</li>`
                     ) + gerarAccordion(
                         'bem', '💆 3. Frente de Bem-Estar e Benefícios',
-                        `<li class="leading-relaxed mb-3"><strong>Descompressão In Loco:</strong> Liberação documentada para uso da Sala Zen/Descanso da empresa durante o expediente e agendamento prioritário de sessão de <em>Quick Massage</em> corporativa.</li>
+                        `<li class="leading-relaxed mb-2"><strong>Descompressão In Loco:</strong> Liberação documentada para uso da Sala Zen/Descanso da empresa durante o expediente e agendamento prioritário de sessão de <em>Quick Massage</em> corporativa.</li>
                          <li class="leading-relaxed"><strong>Pausas Ativas Obrigatórias:</strong> A cada 2 horas de trabalho analítico pesado (como folha), o profissional deve realizar uma micro-pausa de 10 minutos desconectada de telas para alongamento.</li>`
                     );
 
@@ -418,7 +412,6 @@
                     headerLaudo.classList.add('bg-[#fef2f2]', 'text-[#be123c]');
                     titulo.classList.add('text-[#be123c]');
                     pontos.classList.add('text-[#be123c]');
-                    boxDiagnosticoBg.classList.add('bg-[#fef2f2]', 'border-[#fecdd3]', 'text-[#be123c]');
                     
                     titulo.textContent = "Risco Crítico de Burnout";
                     pontos.textContent = cargaTotal;
@@ -426,15 +419,15 @@
                     
                     conteudoSanfona = gerarAccordion(
                         'org', '🛡️ 1. Frente Organizacional',
-                        `<li class="leading-relaxed mb-3"><strong>Afastamento Total do Front:</strong> Movimentação emergencial imediata. O profissional é retirado no mesmo dia de qualquer contato com o público, mediações ou demissões. Realocação para o <em>Backoffice</em>.</li>
+                        `<li class="leading-relaxed mb-2"><strong>Afastamento Total do Front:</strong> Movimentação emergencial imediata. O profissional é retirado no mesmo dia de qualquer contato com o público, mediações ou demissões. Realocação para o <em>Backoffice</em>.</li>
                          <li class="leading-relaxed"><strong>Auditoria Estrutural:</strong> Notificar a Diretoria Executiva sobre o estouro do <em>RH Headcount Ratio</em>. O setor demonstra necessidade de contratação com urgência para diluição da carga operacional.</li>`
                     ) + gerarAccordion(
                         'psi', '🧠 2. Frente Psicológica',
-                        `<li class="leading-relaxed mb-3"><strong>EAP Obrigatório (Apoio Psicológico):</strong> A liderança aciona o Programa de Apoio ao Empregado, garantindo o encaminhamento formal do profissional para sessões de psicoterapia custeadas pela empresa.</li>
+                        `<li class="leading-relaxed mb-2"><strong>EAP Obrigatório (Apoio Psicológico):</strong> A liderança aciona o Programa de Apoio ao Empregado, garantindo o encaminhamento formal do profissional para sessões de psicoterapia custeadas pela empresa.</li>
                          <li class="leading-relaxed"><strong>Debriefing de Trauma:</strong> Sessão de descompressão especializada guiada para ajudar o analista a processar e não internalizar "o trauma do outro", essencial após o atendimento de casos de assédio moral/sexual.</li>`
                     ) + gerarAccordion(
                         'bem', '💆 3. Frente de Bem-Estar e Benefícios',
-                        `<li class="leading-relaxed mb-3"><strong>Quebra de Ciclo (Day Off):</strong> Ação imediata para cortar a produção de cortisol. O profissional recebe uma folga compulsória não descontada para focar na recuperação de sua Higiene do Sono.</li>
+                        `<li class="leading-relaxed mb-2"><strong>Quebra de Ciclo (Day Off):</strong> Ação imediata para cortar a produção de cortisol. O profissional recebe uma folga compulsória não descontada para focar na recuperação de sua Higiene do Sono.</li>
                          <li class="leading-relaxed"><strong>Desconexão Digital Protegida:</strong> Durante o afastamento, a TI atua bloqueando ativamente os gestores e encarregados de entrarem em contato com este funcionário, garantindo repouso real.</li>`
                     );
                 }
@@ -452,14 +445,14 @@
 
         function gerarAccordion(id, titulo, itensLista) {
             return `
-            <div class="border border-black/5 rounded-2xl overflow-hidden bg-white hover:border-wh-primary/20 transition-all duration-200 shadow-sm">
-                <button type="button" onclick="toggleAccordion('${id}')" class="w-full px-6 py-5 flex justify-between items-center text-left focus:outline-none group bg-transparent">
-                    <span class="font-extrabold text-[15px] text-wh-accent group-hover:text-wh-primary transition-colors">${titulo}</span>
-                    <span id="icon-${id}" class="text-2xl font-medium text-wh-text/30 group-hover:text-wh-primary transition-colors">+</span>
+            <div class="border border-black/5 rounded-2xl overflow-hidden bg-white hover:border-black/10 transition-all duration-200 shadow-sm mb-3">
+                <button type="button" onclick="toggleAccordion('${id}')" class="w-full px-5 py-4 flex justify-between items-center text-left focus:outline-none group bg-transparent">
+                    <span class="font-extrabold text-[13px] text-wh-accent group-hover:text-wh-primary transition-colors">${titulo}</span>
+                    <span id="icon-${id}" class="text-xl font-medium text-wh-text/30 group-hover:text-wh-primary transition-colors">+</span>
                 </button>
                 <div id="content-${id}" class="accordion-content">
-                    <div class="px-6 pb-6 pt-1">
-                        <ul class="list-disc pl-5 text-[14px] text-wh-accent/80 font-medium">
+                    <div class="px-5 pb-5 pt-0">
+                        <ul class="list-disc pl-4 text-[13px] text-wh-accent/80 font-medium">
                             ${itensLista}
                         </ul>
                     </div>
@@ -471,9 +464,8 @@
             const box = document.getElementById('resultadoBox');
             box.classList.remove('show');
             setTimeout(() => {
-                const resetClasses = ['bg-[#ecfdf5]', 'bg-[#fffbeb]', 'bg-[#fef2f2]', 'text-[#047857]', 'text-[#b45309]', 'text-[#be123c]', 'border-[#a7f3d0]', 'border-[#fde68a]', 'border-[#fecdd3]', 'text-wh-accent'];
+                const resetClasses = ['bg-[#ecfdf5]', 'bg-[#fffbeb]', 'bg-[#fef2f2]', 'text-[#047857]', 'text-[#b45309]', 'text-[#be123c]'];
                 document.getElementById('headerLaudo').classList.remove(...resetClasses);
-                document.getElementById('boxDiagnosticoBg').classList.remove(...resetClasses);
                 document.getElementById('marcadorBarra').style.left = '0%';
             }, 500); 
         }
