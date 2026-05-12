@@ -28,7 +28,7 @@
                             primaryHover: '#b93151',
                             text: '#1e293b',     
                             accent: '#0f172a',
-                            /* Paleta Modo Escuro (Inspirado no seu Print) */
+                            /* Paleta Modo Escuro */
                             darkBg: '#13161f',     /* Fundo geral super escuro */
                             darkCard: '#1e2330',   /* Fundo das caixas */
                             darkInput: '#181b26',  /* Fundo dos campos de digitar */
@@ -72,18 +72,20 @@
             transition: left 1.2s cubic-bezier(0.34, 1.56, 0.64, 1); 
         }
 
-        /* Oculta setinhas nativas dos inputs number */
+        /* Oculta setinhas nativas feias dos navegadores para usarmos as nossas */
         input[type="number"]::-webkit-inner-spin-button,
         input[type="number"]::-webkit-outer-spin-button {
             -webkit-appearance: none;
             margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
         }
     </style>
 </head>
 <body class="bg-wh-bg dark:bg-wh-darkBg text-wh-text dark:text-slate-200 antialiased min-h-screen flex flex-col items-center pt-8 pb-8 px-4 sm:px-8 transition-colors duration-300">
 
     <!-- ================= NAVBAR FLUTUANTE (Aparece apenas ao rolar) ================= -->
-    <!-- No modo claro, ela é creme. No modo escuro, ela assume o tom escuro do app -->
     <nav id="scrollNavbar" class="fixed top-0 left-0 w-full z-50 transform -translate-y-full transition-transform duration-300 shadow-md bg-wh-bg dark:bg-wh-darkCard border-b border-black/5 dark:border-wh-darkBorder flex justify-between items-center px-4 sm:px-6 py-3">
         
         <!-- Esquerda: Modo Escuro -->
@@ -115,7 +117,7 @@
                     <img src="https://i.imgur.com/lJXBL0X.png" alt="Logo RH" class="w-full h-full object-contain dark:brightness-0 dark:invert transition-all">
                 </div>
                 <div>
-                    <!-- Nova Fonte Montserrat (font-display) -->
+                    <!-- Fonte Montserrat -->
                     <h1 class="text-2xl md:text-3xl font-display font-medium uppercase tracking-[0.2em] text-wh-accent dark:text-slate-100 leading-tight">Guardião do RH</h1>
                     <p class="text-wh-primary dark:text-rose-400 text-[10px] font-bold uppercase tracking-widest mt-1.5 opacity-90">Plataforma de Saúde Organizacional</p>
                 </div>
@@ -160,7 +162,7 @@
                     </div>
                 </div>
 
-                <!-- Seção 2: Inputs de Carga -->
+                <!-- Seção 2: Inputs de Carga com Setinhas -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     
                     <!-- Card: Carga Emocional -->
@@ -172,59 +174,113 @@
                             Carga Emocional
                         </h3>
                         <div class="space-y-4">
+                            
+                            <!-- Input 1 -->
                             <div class="bg-white/60 dark:bg-wh-darkInput p-1.5 pl-4 rounded-xl flex justify-between items-center border border-white/40 dark:border-transparent focus-within:ring-2 focus-within:ring-wh-primary/30 transition-all">
-                                <div class="flex-1">
+                                <div class="flex-1 pr-2">
                                     <label for="conflitos" class="block text-sm font-semibold text-wh-accent dark:text-slate-300">Mediação de Conflitos</label>
                                     <span class="text-[10px] text-wh-primary dark:text-rose-400 font-bold uppercase tracking-widest">Peso 10</span>
                                 </div>
-                                <input type="number" id="conflitos" min="0" value="0" class="w-16 h-12 text-center text-lg font-bold rounded-lg bg-white dark:bg-wh-darkBg dark:text-white outline-none">
+                                <div class="flex items-center bg-white dark:bg-wh-darkBg rounded-lg shadow-sm border border-black/5 dark:border-slate-800 overflow-hidden h-12">
+                                    <input type="number" id="conflitos" min="0" value="0" class="w-12 h-full text-center text-lg font-bold bg-transparent outline-none dark:text-white">
+                                    <div class="flex flex-col border-l border-black/5 dark:border-slate-700 h-full w-8">
+                                        <button type="button" onclick="changeValue('conflitos', 1)" class="flex-1 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors focus:outline-none"><svg class="w-3 h-3 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 15l7-7 7 7"></path></svg></button>
+                                        <div class="h-[1px] bg-black/5 dark:bg-slate-700 w-full"></div>
+                                        <button type="button" onclick="changeValue('conflitos', -1)" class="flex-1 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors focus:outline-none"><svg class="w-3 h-3 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg></button>
+                                    </div>
+                                </div>
                             </div>
+                            
+                            <!-- Input 2 -->
                             <div class="bg-white/60 dark:bg-wh-darkInput p-1.5 pl-4 rounded-xl flex justify-between items-center border border-white/40 dark:border-transparent focus-within:ring-2 focus-within:ring-wh-primary/30 transition-all">
-                                <div class="flex-1">
+                                <div class="flex-1 pr-2">
                                     <label for="demissoes" class="block text-sm font-semibold text-wh-accent dark:text-slate-300">Demissões Conduzidas</label>
                                     <span class="text-[10px] text-wh-primary dark:text-rose-400 font-bold uppercase tracking-widest">Peso 8</span>
                                 </div>
-                                <input type="number" id="demissoes" min="0" value="0" class="w-16 h-12 text-center text-lg font-bold rounded-lg bg-white dark:bg-wh-darkBg dark:text-white outline-none">
+                                <div class="flex items-center bg-white dark:bg-wh-darkBg rounded-lg shadow-sm border border-black/5 dark:border-slate-800 overflow-hidden h-12">
+                                    <input type="number" id="demissoes" min="0" value="0" class="w-12 h-full text-center text-lg font-bold bg-transparent outline-none dark:text-white">
+                                    <div class="flex flex-col border-l border-black/5 dark:border-slate-700 h-full w-8">
+                                        <button type="button" onclick="changeValue('demissoes', 1)" class="flex-1 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors focus:outline-none"><svg class="w-3 h-3 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 15l7-7 7 7"></path></svg></button>
+                                        <div class="h-[1px] bg-black/5 dark:bg-slate-700 w-full"></div>
+                                        <button type="button" onclick="changeValue('demissoes', -1)" class="flex-1 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors focus:outline-none"><svg class="w-3 h-3 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg></button>
+                                    </div>
+                                </div>
                             </div>
+                            
+                            <!-- Input 3 -->
                             <div class="bg-white/60 dark:bg-wh-darkInput p-1.5 pl-4 rounded-xl flex justify-between items-center border border-white/40 dark:border-transparent focus-within:ring-2 focus-within:ring-wh-primary/30 transition-all">
-                                <div class="flex-1">
+                                <div class="flex-1 pr-2">
                                     <label for="interrupcoes" class="block text-sm font-semibold text-wh-accent dark:text-slate-300">Atendimentos Surpresa</label>
                                     <span class="text-[10px] text-wh-text/50 dark:text-slate-500 font-bold uppercase tracking-widest">Peso 1</span>
                                 </div>
-                                <input type="number" id="interrupcoes" min="0" value="0" class="w-16 h-12 text-center text-lg font-bold rounded-lg bg-white dark:bg-wh-darkBg dark:text-white outline-none">
+                                <div class="flex items-center bg-white dark:bg-wh-darkBg rounded-lg shadow-sm border border-black/5 dark:border-slate-800 overflow-hidden h-12">
+                                    <input type="number" id="interrupcoes" min="0" value="0" class="w-12 h-full text-center text-lg font-bold bg-transparent outline-none dark:text-white">
+                                    <div class="flex flex-col border-l border-black/5 dark:border-slate-700 h-full w-8">
+                                        <button type="button" onclick="changeValue('interrupcoes', 1)" class="flex-1 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors focus:outline-none"><svg class="w-3 h-3 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 15l7-7 7 7"></path></svg></button>
+                                        <div class="h-[1px] bg-black/5 dark:bg-slate-700 w-full"></div>
+                                        <button type="button" onclick="changeValue('interrupcoes', -1)" class="flex-1 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors focus:outline-none"><svg class="w-3 h-3 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg></button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Card: Carga Cognitiva -->
                     <div class="bg-wh-card dark:bg-wh-darkCard p-6 rounded-[24px] border border-transparent dark:border-wh-darkBorder transition-colors">
-                        <h3 class="text-sm font-extrabold text-wh-accent dark:text-slate-100 uppercase mb-6 flex items-center tracking-wider">
+                        <h3 class="text-sm font-extrabold text-wh-accent dark:text-white uppercase mb-6 flex items-center tracking-wider">
                             <span class="w-8 h-8 rounded-full bg-[#1e3a8a]/10 dark:bg-blue-500/10 text-[#1e3a8a] dark:text-blue-400 flex items-center justify-center mr-3">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
                             </span>
                             Carga Cognitiva
                         </h3>
                         <div class="space-y-4">
+                            
+                            <!-- Input 4 -->
                             <div class="bg-white/60 dark:bg-wh-darkInput p-1.5 pl-4 rounded-xl flex justify-between items-center border border-white/40 dark:border-transparent focus-within:ring-2 focus-within:ring-[#1e3a8a]/30 transition-all">
-                                <div class="flex-1">
+                                <div class="flex-1 pr-2">
                                     <label for="vagas" class="block text-sm font-semibold text-wh-accent dark:text-slate-300">Vagas/Seleções Abertas</label>
                                     <span class="text-[10px] text-[#1e3a8a] dark:text-blue-400 font-bold uppercase tracking-widest">Peso 4</span>
                                 </div>
-                                <input type="number" id="vagas" min="0" value="0" class="w-16 h-12 text-center text-lg font-bold rounded-lg bg-white dark:bg-wh-darkBg dark:text-white outline-none">
+                                <div class="flex items-center bg-white dark:bg-wh-darkBg rounded-lg shadow-sm border border-black/5 dark:border-slate-800 overflow-hidden h-12">
+                                    <input type="number" id="vagas" min="0" value="0" class="w-12 h-full text-center text-lg font-bold bg-transparent outline-none dark:text-white">
+                                    <div class="flex flex-col border-l border-black/5 dark:border-slate-700 h-full w-8">
+                                        <button type="button" onclick="changeValue('vagas', 1)" class="flex-1 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors focus:outline-none"><svg class="w-3 h-3 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 15l7-7 7 7"></path></svg></button>
+                                        <div class="h-[1px] bg-black/5 dark:bg-slate-700 w-full"></div>
+                                        <button type="button" onclick="changeValue('vagas', -1)" class="flex-1 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors focus:outline-none"><svg class="w-3 h-3 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg></button>
+                                    </div>
+                                </div>
                             </div>
+                            
+                            <!-- Input 5 -->
                             <div class="bg-white/60 dark:bg-wh-darkInput p-1.5 pl-4 rounded-xl flex justify-between items-center border border-white/40 dark:border-transparent focus-within:ring-2 focus-within:ring-[#1e3a8a]/30 transition-all">
-                                <div class="flex-1">
+                                <div class="flex-1 pr-2">
                                     <label for="horasExtras" class="block text-sm font-semibold text-wh-accent dark:text-slate-300">Horas Extras Realizadas</label>
                                     <span class="text-[10px] text-[#1e3a8a] dark:text-blue-400 font-bold uppercase tracking-widest">Peso 3</span>
                                 </div>
-                                <input type="number" id="horasExtras" min="0" value="0" class="w-16 h-12 text-center text-lg font-bold rounded-lg bg-white dark:bg-wh-darkBg dark:text-white outline-none">
+                                <div class="flex items-center bg-white dark:bg-wh-darkBg rounded-lg shadow-sm border border-black/5 dark:border-slate-800 overflow-hidden h-12">
+                                    <input type="number" id="horasExtras" min="0" value="0" class="w-12 h-full text-center text-lg font-bold bg-transparent outline-none dark:text-white">
+                                    <div class="flex flex-col border-l border-black/5 dark:border-slate-700 h-full w-8">
+                                        <button type="button" onclick="changeValue('horasExtras', 1)" class="flex-1 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors focus:outline-none"><svg class="w-3 h-3 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 15l7-7 7 7"></path></svg></button>
+                                        <div class="h-[1px] bg-black/5 dark:bg-slate-700 w-full"></div>
+                                        <button type="button" onclick="changeValue('horasExtras', -1)" class="flex-1 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors focus:outline-none"><svg class="w-3 h-3 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg></button>
+                                    </div>
+                                </div>
                             </div>
+                            
+                            <!-- Input 6 -->
                             <div class="bg-white/60 dark:bg-wh-darkInput p-1.5 pl-4 rounded-xl flex justify-between items-center border border-white/40 dark:border-transparent focus-within:ring-2 focus-within:ring-[#1e3a8a]/30 transition-all">
-                                <div class="flex-1">
+                                <div class="flex-1 pr-2">
                                     <label for="fechamento" class="block text-sm font-semibold text-wh-accent dark:text-slate-300">Pessoas na Folha</label>
                                     <span class="text-[10px] text-wh-text/50 dark:text-slate-500 font-bold uppercase tracking-widest">Peso 0.2</span>
                                 </div>
-                                <input type="number" id="fechamento" min="0" value="0" class="w-16 h-12 text-center text-lg font-bold rounded-lg bg-white dark:bg-wh-darkBg dark:text-white outline-none">
+                                <div class="flex items-center bg-white dark:bg-wh-darkBg rounded-lg shadow-sm border border-black/5 dark:border-slate-800 overflow-hidden h-12">
+                                    <input type="number" id="fechamento" min="0" value="0" class="w-12 h-full text-center text-lg font-bold bg-transparent outline-none dark:text-white">
+                                    <div class="flex flex-col border-l border-black/5 dark:border-slate-700 h-full w-8">
+                                        <button type="button" onclick="changeValue('fechamento', 1)" class="flex-1 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors focus:outline-none"><svg class="w-3 h-3 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 15l7-7 7 7"></path></svg></button>
+                                        <div class="h-[1px] bg-black/5 dark:bg-slate-700 w-full"></div>
+                                        <button type="button" onclick="changeValue('fechamento', -1)" class="flex-1 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors focus:outline-none"><svg class="w-3 h-3 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg></button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -242,7 +298,6 @@
             </form>
 
             <!-- ================= ÁREA DE RESULTADO ================= -->
-            <!-- Note que o fundo do laudo no escuro é limpo e não ganha faixa inteira colorida, igual no print -->
             <div id="resultadoBox" class="resultado-card mt-12 bg-white dark:bg-wh-darkCard rounded-[32px] shadow-[0_10px_40px_rgba(0,0,0,0.05)] dark:shadow-none overflow-hidden border border-black/5 dark:border-wh-darkBorder transition-colors duration-300">
                 
                 <div id="headerLaudo" class="p-8 lg:p-10 flex flex-col md:flex-row items-center md:items-start justify-between gap-6 transition-colors duration-500 bg-white dark:bg-transparent border-b border-black/5 dark:border-wh-darkBorder">
@@ -298,6 +353,20 @@
     </div>
 
     <script>
+        // Função de incrementar e decrementar os valores com as setinhas personalizadas
+        function changeValue(id, delta) {
+            const input = document.getElementById(id);
+            let val = parseInt(input.value);
+            if (isNaN(val)) val = 0;
+            
+            val += delta;
+            
+            // Impede números negativos
+            if (val < 0) val = 0;
+            
+            input.value = val;
+        }
+
         // Navbar scroll e cores
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('scrollNavbar');
@@ -379,7 +448,7 @@
             const marcador = document.getElementById('marcadorBarra');
             const spanPeriodo = document.getElementById('spanPeriodo');
 
-            // Limpa as cores de texto (pois o fundo agora fica inalterado no modo escuro)
+            // Limpa as cores de texto
             const resetClasses = ['text-[#047857]', 'text-[#b45309]', 'text-[#be123c]', 'dark:text-emerald-400', 'dark:text-amber-400', 'dark:text-rose-400'];
             titulo.classList.remove(...resetClasses, 'text-wh-accent', 'dark:text-slate-100');
             pontos.classList.remove(...resetClasses, 'text-wh-accent', 'dark:text-slate-100');
@@ -490,6 +559,9 @@
             setTimeout(() => {
                 document.getElementById('marcadorBarra').style.left = '0%';
             }, 500); 
+            // Zera todos os inputs numéricos (opcional, pode remover se preferir manter os dados ao ocultar)
+            document.querySelectorAll('input[type="number"]').forEach(input => input.value = 0);
+            document.getElementById('nome').value = '';
         }
     </script>
 </body>
