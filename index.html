@@ -6,25 +6,33 @@
     <title>Guardião do RH</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Fonte Inter do Google -->
+    <!-- Fontes do Google: Inter (Textos) e Montserrat (Títulos) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
+            darkMode: 'class', // Habilita o modo escuro manual
             theme: {
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif'], // Nova fonte sofisticada
                     },
                     colors: {
                         wh: {
-                            bg: '#fcf8f2',       /* Fundo creme/bege claro */
-                            card: '#f4eadd',     /* Bege mais escuro pros cards */
-                            primary: '#d63b60',  /* Rosa/Vermelho (Botões) */
+                            /* Paleta Modo Claro (Creme Wellness) */
+                            bg: '#fcf8f2',       
+                            card: '#f4eadd',     
+                            primary: '#d63b60',  
                             primaryHover: '#b93151',
-                            text: '#1e293b',     /* Texto azul marinho super escuro */
-                            accent: '#0f172a'
+                            text: '#1e293b',     
+                            accent: '#0f172a',
+                            /* Paleta Modo Escuro (Inspirado no seu Print) */
+                            darkBg: '#13161f',     /* Fundo geral super escuro */
+                            darkCard: '#1e2330',   /* Fundo das caixas */
+                            darkInput: '#181b26',  /* Fundo dos campos de digitar */
+                            darkBorder: '#2d3343'  /* Linhas divisórias sutis */
                         }
                     }
                 }
@@ -32,7 +40,7 @@
         }
     </script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #fcf8f2; }
+        body { font-family: 'Inter', sans-serif; }
 
         /* Animação do card de resultado */
         .resultado-card {
@@ -59,7 +67,7 @@
             opacity: 1;
         }
 
-        /* Estilo do marcador da barra de progresso - animação de "salto" */
+        /* Estilo do marcador da barra de progresso */
         .marcador-progresso {
             transition: left 1.2s cubic-bezier(0.34, 1.56, 0.64, 1); 
         }
@@ -72,50 +80,79 @@
         }
     </style>
 </head>
-<body class="text-wh-text antialiased min-h-screen flex items-start justify-center p-4 sm:p-8">
+<body class="bg-wh-bg dark:bg-wh-darkBg text-wh-text dark:text-slate-200 antialiased min-h-screen flex flex-col items-center pt-8 pb-8 px-4 sm:px-8 transition-colors duration-300">
 
-    <!-- Container Principal -->
-    <div class="max-w-3xl w-full">
+    <!-- ================= NAVBAR FLUTUANTE (Aparece apenas ao rolar) ================= -->
+    <!-- No modo claro, ela é creme. No modo escuro, ela assume o tom escuro do app -->
+    <nav id="scrollNavbar" class="fixed top-0 left-0 w-full z-50 transform -translate-y-full transition-transform duration-300 shadow-md bg-wh-bg dark:bg-wh-darkCard border-b border-black/5 dark:border-wh-darkBorder flex justify-between items-center px-4 sm:px-6 py-3">
         
-        <!-- CABEÇALHO (Estilo Plataforma Wellness) -->
-        <div class="pt-4 pb-8 flex flex-col sm:flex-row items-center sm:justify-between text-center sm:text-left gap-4">
-            <div class="flex items-center space-x-4">
-                <!-- Novo Logo: Imagem RH do Imgur -->
-                <div class="w-12 h-12 flex items-center justify-center">
-                    <img src="https://i.imgur.com/lJXBL0X.png" alt="Logo RH" class="w-full h-full object-contain">
+        <!-- Esquerda: Modo Escuro -->
+        <button onclick="toggleDarkMode()" class="p-2 rounded-full text-wh-accent dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors focus:outline-none" aria-label="Alternar Tema">
+            <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+            <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+        </button>
+
+        <!-- Centro: Logo RH -->
+        <div class="h-8 w-12 flex justify-center items-center">
+            <img src="https://i.imgur.com/lJXBL0X.png" alt="Logo RH" class="h-full object-contain dark:brightness-0 dark:invert transition-all">
+        </div>
+
+        <!-- Direita: Voltar ao Topo -->
+        <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" class="p-2 rounded-full text-wh-accent dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors focus:outline-none" aria-label="Voltar ao topo">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+            </svg>
+        </button>
+    </nav>
+
+    <!-- Container Principal do App -->
+    <div class="max-w-3xl w-full mt-2">
+        
+        <!-- CABEÇALHO PRINCIPAL DO TOPO -->
+        <div class="pb-8 flex flex-col sm:flex-row items-center sm:justify-between text-center sm:text-left gap-6 border-b border-black/5 dark:border-wh-darkBorder mb-8">
+            <div class="flex flex-col sm:flex-row items-center gap-5">
+                <div class="w-14 h-14 flex items-center justify-center">
+                    <img src="https://i.imgur.com/lJXBL0X.png" alt="Logo RH" class="w-full h-full object-contain dark:brightness-0 dark:invert transition-all">
                 </div>
                 <div>
-                    <h1 class="text-3xl font-extrabold tracking-tight text-wh-accent leading-tight">Guardião do RH</h1>
-                    <p class="text-wh-primary text-xs font-bold uppercase tracking-widest mt-1">Plataforma de Saúde Organizacional</p>
+                    <!-- Nova Fonte Montserrat (font-display) -->
+                    <h1 class="text-2xl md:text-3xl font-display font-medium uppercase tracking-[0.2em] text-wh-accent dark:text-slate-100 leading-tight">Guardião do RH</h1>
+                    <p class="text-wh-primary dark:text-rose-400 text-[10px] font-bold uppercase tracking-widest mt-1.5 opacity-90">Plataforma de Saúde Organizacional</p>
                 </div>
             </div>
             
-            <div class="hidden sm:flex items-center px-4 py-2 bg-wh-card rounded-full border border-wh-primary/10">
-                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 mr-2 animate-pulse"></span>
-                <span class="text-xs font-bold text-wh-accent opacity-80">Sistema Ativo</span>
+            <div class="flex items-center gap-3">
+                <button onclick="toggleDarkMode()" class="p-2.5 rounded-full bg-white dark:bg-wh-darkCard border border-black/5 dark:border-wh-darkBorder shadow-sm text-wh-text/50 dark:text-slate-400 hover:text-wh-primary dark:hover:text-white transition-colors focus:outline-none">
+                    <svg class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    <svg class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                </button>
+                <div class="hidden sm:flex items-center px-4 py-2 bg-white dark:bg-wh-darkCard rounded-full border border-black/5 dark:border-wh-darkBorder shadow-sm">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 mr-2 animate-pulse"></span>
+                    <span class="text-[11px] font-bold text-wh-accent dark:text-slate-300 uppercase tracking-wider opacity-80">Sistema Ativo</span>
+                </div>
             </div>
         </div>
 
         <!-- CORPO DO APP (Formulário) -->
-        <div class="mt-2">
+        <div>
             <form id="cockpitForm" class="space-y-8">
                 
                 <!-- Seção 1: Configuração da Análise -->
                 <div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                        <div class="bg-white p-3 rounded-2xl border border-black/5 shadow-sm">
-                            <label for="nome" class="block text-[11px] font-bold text-wh-text/60 uppercase tracking-widest mb-1.5 px-1">Colaborador Avaliado</label>
-                            <input type="text" id="nome" placeholder="Digite o nome do analista" class="w-full px-3 py-2 rounded-xl focus:ring-2 focus:ring-wh-primary/30 outline-none transition-all text-[15px] font-semibold text-wh-accent bg-transparent" required>
+                        <div class="bg-white dark:bg-wh-darkCard p-3 rounded-2xl border border-black/5 dark:border-wh-darkBorder shadow-sm transition-colors">
+                            <label for="nome" class="block text-[11px] font-bold text-wh-text/60 dark:text-slate-400 uppercase tracking-widest mb-1.5 px-1">Colaborador Avaliado</label>
+                            <input type="text" id="nome" placeholder="Digite o nome" class="w-full px-3 py-2 rounded-xl focus:ring-2 focus:ring-wh-primary/30 outline-none transition-all text-[15px] font-semibold text-wh-accent dark:text-white bg-transparent" required>
                         </div>
-                        <div class="bg-white p-3 rounded-2xl border border-black/5 shadow-sm">
-                            <label for="periodo" class="block text-[11px] font-bold text-wh-text/60 uppercase tracking-widest mb-1.5 px-1">Período de Análise</label>
+                        <div class="bg-white dark:bg-wh-darkCard p-3 rounded-2xl border border-black/5 dark:border-wh-darkBorder shadow-sm transition-colors">
+                            <label for="periodo" class="block text-[11px] font-bold text-wh-text/60 dark:text-slate-400 uppercase tracking-widest mb-1.5 px-1">Período de Análise</label>
                             <div class="relative">
-                                <select id="periodo" class="w-full px-3 py-2 rounded-xl focus:ring-2 focus:ring-wh-primary/30 outline-none transition-all cursor-pointer text-[15px] font-semibold text-wh-accent appearance-none bg-transparent">
+                                <select id="periodo" class="w-full px-3 py-2 rounded-xl focus:ring-2 focus:ring-wh-primary/30 outline-none transition-all cursor-pointer text-[15px] font-semibold text-wh-accent dark:text-white appearance-none bg-transparent">
                                     <option value="Semanal" selected>Semanal (Recomendado)</option>
                                     <option value="Quinzenal">Quinzenal</option>
                                     <option value="Mensal">Mensal</option>
                                 </select>
-                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-wh-text/40">
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-wh-text/40 dark:text-slate-500">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                                 </div>
                             </div>
@@ -127,67 +164,67 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     
                     <!-- Card: Carga Emocional -->
-                    <div class="bg-wh-card p-6 rounded-[24px]">
-                        <h3 class="text-sm font-extrabold text-wh-accent uppercase mb-6 flex items-center tracking-wider">
-                            <span class="w-8 h-8 rounded-full bg-wh-primary/10 text-wh-primary flex items-center justify-center mr-3">
+                    <div class="bg-wh-card dark:bg-wh-darkCard p-6 rounded-[24px] border border-transparent dark:border-wh-darkBorder transition-colors">
+                        <h3 class="text-sm font-extrabold text-wh-accent dark:text-slate-100 uppercase mb-6 flex items-center tracking-wider">
+                            <span class="w-8 h-8 rounded-full bg-wh-primary/10 dark:bg-rose-500/10 text-wh-primary dark:text-rose-400 flex items-center justify-center mr-3">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
                             </span> 
                             Carga Emocional
                         </h3>
                         <div class="space-y-4">
-                            <div class="bg-white/60 p-1.5 pl-4 rounded-xl flex justify-between items-center border border-white/40 focus-within:ring-2 focus-within:ring-wh-primary/30 transition-all">
+                            <div class="bg-white/60 dark:bg-wh-darkInput p-1.5 pl-4 rounded-xl flex justify-between items-center border border-white/40 dark:border-transparent focus-within:ring-2 focus-within:ring-wh-primary/30 transition-all">
                                 <div class="flex-1">
-                                    <label for="conflitos" class="block text-sm font-semibold text-wh-accent">Mediação de Conflitos</label>
-                                    <span class="text-[10px] text-wh-primary font-bold uppercase tracking-widest">Peso 10</span>
+                                    <label for="conflitos" class="block text-sm font-semibold text-wh-accent dark:text-slate-300">Mediação de Conflitos</label>
+                                    <span class="text-[10px] text-wh-primary dark:text-rose-400 font-bold uppercase tracking-widest">Peso 10</span>
                                 </div>
-                                <input type="number" id="conflitos" min="0" value="0" class="w-16 h-12 text-center text-lg font-bold rounded-lg bg-white outline-none">
+                                <input type="number" id="conflitos" min="0" value="0" class="w-16 h-12 text-center text-lg font-bold rounded-lg bg-white dark:bg-wh-darkBg dark:text-white outline-none">
                             </div>
-                            <div class="bg-white/60 p-1.5 pl-4 rounded-xl flex justify-between items-center border border-white/40 focus-within:ring-2 focus-within:ring-wh-primary/30 transition-all">
+                            <div class="bg-white/60 dark:bg-wh-darkInput p-1.5 pl-4 rounded-xl flex justify-between items-center border border-white/40 dark:border-transparent focus-within:ring-2 focus-within:ring-wh-primary/30 transition-all">
                                 <div class="flex-1">
-                                    <label for="demissoes" class="block text-sm font-semibold text-wh-accent">Demissões Conduzidas</label>
-                                    <span class="text-[10px] text-wh-primary font-bold uppercase tracking-widest">Peso 8</span>
+                                    <label for="demissoes" class="block text-sm font-semibold text-wh-accent dark:text-slate-300">Demissões Conduzidas</label>
+                                    <span class="text-[10px] text-wh-primary dark:text-rose-400 font-bold uppercase tracking-widest">Peso 8</span>
                                 </div>
-                                <input type="number" id="demissoes" min="0" value="0" class="w-16 h-12 text-center text-lg font-bold rounded-lg bg-white outline-none">
+                                <input type="number" id="demissoes" min="0" value="0" class="w-16 h-12 text-center text-lg font-bold rounded-lg bg-white dark:bg-wh-darkBg dark:text-white outline-none">
                             </div>
-                            <div class="bg-white/60 p-1.5 pl-4 rounded-xl flex justify-between items-center border border-white/40 focus-within:ring-2 focus-within:ring-wh-primary/30 transition-all">
+                            <div class="bg-white/60 dark:bg-wh-darkInput p-1.5 pl-4 rounded-xl flex justify-between items-center border border-white/40 dark:border-transparent focus-within:ring-2 focus-within:ring-wh-primary/30 transition-all">
                                 <div class="flex-1">
-                                    <label for="interrupcoes" class="block text-sm font-semibold text-wh-accent">Atendimentos Surpresa</label>
-                                    <span class="text-[10px] text-wh-text/50 font-bold uppercase tracking-widest">Peso 1</span>
+                                    <label for="interrupcoes" class="block text-sm font-semibold text-wh-accent dark:text-slate-300">Atendimentos Surpresa</label>
+                                    <span class="text-[10px] text-wh-text/50 dark:text-slate-500 font-bold uppercase tracking-widest">Peso 1</span>
                                 </div>
-                                <input type="number" id="interrupcoes" min="0" value="0" class="w-16 h-12 text-center text-lg font-bold rounded-lg bg-white outline-none">
+                                <input type="number" id="interrupcoes" min="0" value="0" class="w-16 h-12 text-center text-lg font-bold rounded-lg bg-white dark:bg-wh-darkBg dark:text-white outline-none">
                             </div>
                         </div>
                     </div>
 
                     <!-- Card: Carga Cognitiva -->
-                    <div class="bg-wh-card p-6 rounded-[24px]">
-                        <h3 class="text-sm font-extrabold text-wh-accent uppercase mb-6 flex items-center tracking-wider">
-                            <span class="w-8 h-8 rounded-full bg-[#1e3a8a]/10 text-[#1e3a8a] flex items-center justify-center mr-3">
+                    <div class="bg-wh-card dark:bg-wh-darkCard p-6 rounded-[24px] border border-transparent dark:border-wh-darkBorder transition-colors">
+                        <h3 class="text-sm font-extrabold text-wh-accent dark:text-slate-100 uppercase mb-6 flex items-center tracking-wider">
+                            <span class="w-8 h-8 rounded-full bg-[#1e3a8a]/10 dark:bg-blue-500/10 text-[#1e3a8a] dark:text-blue-400 flex items-center justify-center mr-3">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
                             </span>
                             Carga Cognitiva
                         </h3>
                         <div class="space-y-4">
-                            <div class="bg-white/60 p-1.5 pl-4 rounded-xl flex justify-between items-center border border-white/40 focus-within:ring-2 focus-within:ring-[#1e3a8a]/30 transition-all">
+                            <div class="bg-white/60 dark:bg-wh-darkInput p-1.5 pl-4 rounded-xl flex justify-between items-center border border-white/40 dark:border-transparent focus-within:ring-2 focus-within:ring-[#1e3a8a]/30 transition-all">
                                 <div class="flex-1">
-                                    <label for="vagas" class="block text-sm font-semibold text-wh-accent">Vagas/Seleções Abertas</label>
-                                    <span class="text-[10px] text-[#1e3a8a] font-bold uppercase tracking-widest">Peso 4</span>
+                                    <label for="vagas" class="block text-sm font-semibold text-wh-accent dark:text-slate-300">Vagas/Seleções Abertas</label>
+                                    <span class="text-[10px] text-[#1e3a8a] dark:text-blue-400 font-bold uppercase tracking-widest">Peso 4</span>
                                 </div>
-                                <input type="number" id="vagas" min="0" value="0" class="w-16 h-12 text-center text-lg font-bold rounded-lg bg-white outline-none">
+                                <input type="number" id="vagas" min="0" value="0" class="w-16 h-12 text-center text-lg font-bold rounded-lg bg-white dark:bg-wh-darkBg dark:text-white outline-none">
                             </div>
-                            <div class="bg-white/60 p-1.5 pl-4 rounded-xl flex justify-between items-center border border-white/40 focus-within:ring-2 focus-within:ring-[#1e3a8a]/30 transition-all">
+                            <div class="bg-white/60 dark:bg-wh-darkInput p-1.5 pl-4 rounded-xl flex justify-between items-center border border-white/40 dark:border-transparent focus-within:ring-2 focus-within:ring-[#1e3a8a]/30 transition-all">
                                 <div class="flex-1">
-                                    <label for="horasExtras" class="block text-sm font-semibold text-wh-accent">Horas Extras Realizadas</label>
-                                    <span class="text-[10px] text-[#1e3a8a] font-bold uppercase tracking-widest">Peso 3</span>
+                                    <label for="horasExtras" class="block text-sm font-semibold text-wh-accent dark:text-slate-300">Horas Extras Realizadas</label>
+                                    <span class="text-[10px] text-[#1e3a8a] dark:text-blue-400 font-bold uppercase tracking-widest">Peso 3</span>
                                 </div>
-                                <input type="number" id="horasExtras" min="0" value="0" class="w-16 h-12 text-center text-lg font-bold rounded-lg bg-white outline-none">
+                                <input type="number" id="horasExtras" min="0" value="0" class="w-16 h-12 text-center text-lg font-bold rounded-lg bg-white dark:bg-wh-darkBg dark:text-white outline-none">
                             </div>
-                            <div class="bg-white/60 p-1.5 pl-4 rounded-xl flex justify-between items-center border border-white/40 focus-within:ring-2 focus-within:ring-[#1e3a8a]/30 transition-all">
+                            <div class="bg-white/60 dark:bg-wh-darkInput p-1.5 pl-4 rounded-xl flex justify-between items-center border border-white/40 dark:border-transparent focus-within:ring-2 focus-within:ring-[#1e3a8a]/30 transition-all">
                                 <div class="flex-1">
-                                    <label for="fechamento" class="block text-sm font-semibold text-wh-accent">Pessoas na Folha</label>
-                                    <span class="text-[10px] text-wh-text/50 font-bold uppercase tracking-widest">Peso 0.2</span>
+                                    <label for="fechamento" class="block text-sm font-semibold text-wh-accent dark:text-slate-300">Pessoas na Folha</label>
+                                    <span class="text-[10px] text-wh-text/50 dark:text-slate-500 font-bold uppercase tracking-widest">Peso 0.2</span>
                                 </div>
-                                <input type="number" id="fechamento" min="0" value="0" class="w-16 h-12 text-center text-lg font-bold rounded-lg bg-white outline-none">
+                                <input type="number" id="fechamento" min="0" value="0" class="w-16 h-12 text-center text-lg font-bold rounded-lg bg-white dark:bg-wh-darkBg dark:text-white outline-none">
                             </div>
                         </div>
                     </div>
@@ -195,67 +232,59 @@
 
                 <!-- Botões de Ação -->
                 <div class="flex flex-col sm:flex-row gap-4 pt-6">
-                    <button type="button" onclick="calcularCarga()" class="w-full sm:w-2/3 bg-wh-primary hover:bg-wh-primaryHover text-white font-bold text-[15px] py-4 px-6 rounded-full transition duration-300 ease-in-out shadow-[0_8px_20px_rgba(214,59,96,0.3)] hover:shadow-[0_10px_25px_rgba(214,59,96,0.4)] hover:-translate-y-0.5 flex justify-center items-center">
+                    <button type="button" onclick="calcularCarga()" class="w-full sm:w-2/3 bg-wh-primary hover:bg-wh-primaryHover text-white font-bold text-[15px] py-4 px-6 rounded-full transition duration-300 ease-in-out shadow-[0_8px_20px_rgba(214,59,96,0.3)] hover:-translate-y-0.5 flex justify-center items-center">
                         Gerar Diagnóstico Avançado
                     </button>
-                    <button type="reset" onclick="esconderResultado()" class="w-full sm:w-1/3 bg-transparent border-2 border-wh-primary text-wh-primary hover:bg-wh-primary/5 font-bold text-[15px] py-4 px-6 rounded-full transition duration-200 ease-in-out">
+                    <button type="reset" onclick="esconderResultado()" class="w-full sm:w-1/3 bg-transparent border-2 border-wh-primary text-wh-primary dark:text-rose-400 dark:border-rose-400 hover:bg-wh-primary/5 dark:hover:bg-rose-400/10 font-bold text-[15px] py-4 px-6 rounded-full transition duration-200 ease-in-out">
                         Nova Análise
                     </button>
                 </div>
             </form>
 
-            <!-- ================= ÁREA DE RESULTADO (Minimalista & Premium) ================= -->
-            <div id="resultadoBox" class="resultado-card mt-12 bg-white rounded-[32px] shadow-[0_10px_40px_rgba(0,0,0,0.05)] overflow-hidden border border-black/5">
+            <!-- ================= ÁREA DE RESULTADO ================= -->
+            <!-- Note que o fundo do laudo no escuro é limpo e não ganha faixa inteira colorida, igual no print -->
+            <div id="resultadoBox" class="resultado-card mt-12 bg-white dark:bg-wh-darkCard rounded-[32px] shadow-[0_10px_40px_rgba(0,0,0,0.05)] dark:shadow-none overflow-hidden border border-black/5 dark:border-wh-darkBorder transition-colors duration-300">
                 
-                <!-- Cabeçalho Dinâmico do Laudo -->
-                <div id="headerLaudo" class="p-8 lg:p-10 flex flex-col md:flex-row items-center md:items-start justify-between gap-6 transition-colors duration-500 bg-white border-b border-black/5">
+                <div id="headerLaudo" class="p-8 lg:p-10 flex flex-col md:flex-row items-center md:items-start justify-between gap-6 transition-colors duration-500 bg-white dark:bg-transparent border-b border-black/5 dark:border-wh-darkBorder">
                     
-                    <!-- Lado Esquerdo: Textos e Nota (Menores e Elegantes) -->
                     <div class="w-full md:w-1/2 text-center md:text-left">
-                        <span class="text-[10px] font-extrabold uppercase tracking-widest opacity-60 mb-2 block text-wh-text">Status da Avaliação</span>
-                        <h2 id="resultadoTitulo" class="text-2xl lg:text-3xl font-extrabold uppercase tracking-tight mb-2 text-wh-accent"></h2>
+                        <span class="text-[10px] font-extrabold uppercase tracking-widest opacity-60 mb-2 block text-wh-text dark:text-slate-400">Status da Avaliação</span>
+                        <h2 id="resultadoTitulo" class="text-2xl lg:text-3xl font-display font-extrabold uppercase tracking-tight mb-2 text-wh-accent dark:text-slate-100"></h2>
                         <div class="flex items-baseline justify-center md:justify-start gap-1">
-                            <span id="resultadoPontos" class="text-4xl lg:text-5xl font-black tracking-tighter text-wh-accent"></span>
-                            <span class="text-sm font-bold opacity-60 text-wh-accent">pts</span>
+                            <span id="resultadoPontos" class="text-4xl lg:text-5xl font-black tracking-tighter text-wh-accent dark:text-slate-100"></span>
+                            <span class="text-sm font-bold opacity-60 text-wh-accent dark:text-slate-400">pts</span>
                         </div>
                     </div>
 
-                    <!-- Lado Direito: Régua Progressiva (Com Gradiente) -->
+                    <!-- Régua Progressiva -->
                     <div class="w-full md:w-1/2 max-w-sm mt-2 md:mt-0">
-                        <div class="flex justify-between text-[9px] uppercase font-extrabold opacity-50 mb-2 px-1 tracking-widest text-wh-text">
+                        <div class="flex justify-between text-[9px] uppercase font-extrabold opacity-50 mb-2 px-1 tracking-widest text-wh-text dark:text-slate-400">
                             <span>Equilíbrio</span>
                             <span>Alerta</span>
                             <span>Crítico</span>
                         </div>
-                        
-                        <!-- Container Relativo para o Marcador -->
                         <div class="relative w-full">
-                            <!-- Pista de Cores com Gradiente Suave -->
-                            <div class="h-2.5 rounded-full overflow-hidden flex shadow-inner bg-slate-100">
+                            <div class="h-2.5 rounded-full overflow-hidden flex shadow-inner bg-slate-100 dark:bg-slate-800">
                                 <div class="w-full h-full bg-gradient-to-r from-emerald-400 via-amber-400 to-rose-500"></div>
                             </div>
-                            
-                            <!-- O Marcador Centralizado (Mais delicado) -->
-                            <div id="marcadorBarra" class="marcador-progresso absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white border-[3px] border-wh-accent shadow-[0_2px_8px_rgba(0,0,0,0.15)]" style="left: 0%; margin-left: -8px;"></div>
+                            <div id="marcadorBarra" class="marcador-progresso absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white dark:bg-slate-200 border-[3px] border-wh-accent dark:border-slate-800 shadow-[0_2px_8px_rgba(0,0,0,0.15)] dark:shadow-none" style="left: 0%; margin-left: -8px;"></div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Corpo do Laudo -->
-                <div class="p-8 lg:p-10 bg-white">
+                <div class="p-8 lg:p-10 bg-white dark:bg-transparent transition-colors duration-300">
                     
-                    <!-- Diagnóstico Clínico (Fundo limpo) -->
-                    <div class="mb-10">
-                        <h4 class="text-[10px] uppercase font-extrabold mb-3 tracking-widest flex items-center opacity-50 text-wh-text">
+                    <div class="mb-10 p-5 rounded-2xl bg-wh-bg/50 dark:bg-wh-darkInput border border-black/5 dark:border-transparent">
+                        <h4 class="text-[10px] uppercase font-extrabold mb-3 tracking-widest flex items-center opacity-60 text-wh-text dark:text-slate-400">
                             <svg class="w-3.5 h-3.5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                             Parecer Técnico (<span id="spanPeriodo"></span>)
                         </h4>
-                        <p id="textoDiagnostico" class="font-medium text-[14px] leading-relaxed text-wh-text/90"></p>
+                        <p id="textoDiagnostico" class="font-medium text-[14px] leading-relaxed text-wh-text/90 dark:text-slate-300"></p>
                     </div>
                     
-                    <!-- Plano de Intervenção (Accordion) -->
                     <div>
-                        <h4 class="text-[11px] uppercase font-extrabold text-wh-text/50 mb-5 tracking-widest border-b border-black/5 pb-2">
+                        <h4 class="text-[11px] uppercase font-extrabold text-wh-text/50 dark:text-slate-500 mb-5 tracking-widest border-b border-black/5 dark:border-wh-darkBorder pb-2">
                             Plano de Intervenção Sugerido
                         </h4>
                         <div id="textoAtitude" class="space-y-3">
@@ -269,11 +298,24 @@
     </div>
 
     <script>
-        // Função para abrir/fechar a sanfona
+        // Navbar scroll e cores
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('scrollNavbar');
+            if (window.scrollY > 150) {
+                nav.classList.remove('-translate-y-full'); 
+            } else {
+                nav.classList.add('-translate-y-full'); 
+            }
+        });
+
+        // Alternar modo escuro
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+        }
+
         function toggleAccordion(id) {
             const content = document.getElementById('content-' + id);
             const icon = document.getElementById('icon-' + id);
-            
             if (content.classList.contains('open')) {
                 content.classList.remove('open');
                 icon.textContent = '+';
@@ -284,7 +326,6 @@
         }
 
         function calcularCarga() {
-            // Coleta de Dados
             const nomeInput = document.getElementById('nome').value.trim();
             const nome = nomeInput !== "" ? nomeInput : "O(a) Profissional";
             const periodoSelecionado = document.getElementById('periodo').value;
@@ -296,7 +337,6 @@
             const horasExtras = parseInt(document.getElementById('horasExtras').value) || 0;
             const fechamento = parseInt(document.getElementById('fechamento').value) || 0;
 
-            // Lógica de Pesos
             const pesoConflito = 10;
             const pesoDemissao = 8;
             const pesoInterrupcao = 1;
@@ -304,7 +344,6 @@
             const pesoHoraExtra = 3;
             const pesoFechamento = 0.2; 
 
-            // Cálculo Matemático
             const cargaTotal = Math.round(
                 (conflitos * pesoConflito) + 
                 (demissoes * pesoDemissao) + 
@@ -314,7 +353,6 @@
                 (fechamento * pesoFechamento)
             );
 
-            // Inteligência de Período
             let multiplicadorTolerancia = 1;
             let textoFrequencia = "nesta semana";
 
@@ -326,17 +364,14 @@
                 textoFrequencia = "neste mês";
             }
 
-            // Limites
             const limiteVerde = 40 * multiplicadorTolerancia;
             const limiteAmarelo = 75 * multiplicadorTolerancia;
             
-            // Lógica da Barra Visual (Base 120 por semana)
             const maxVisualScore = 120 * multiplicadorTolerancia;
             let percentualBarra = (cargaTotal / maxVisualScore) * 100;
             if (percentualBarra > 100) percentualBarra = 100;
 
             const box = document.getElementById('resultadoBox');
-            const headerLaudo = document.getElementById('headerLaudo');
             const titulo = document.getElementById('resultadoTitulo');
             const pontos = document.getElementById('resultadoPontos');
             const txtDiagnostico = document.getElementById('textoDiagnostico');
@@ -344,13 +379,11 @@
             const marcador = document.getElementById('marcadorBarra');
             const spanPeriodo = document.getElementById('spanPeriodo');
 
-            // Limpeza visual
-            const resetClasses = ['bg-[#ecfdf5]', 'bg-[#fffbeb]', 'bg-[#fef2f2]', 'text-[#047857]', 'text-[#b45309]', 'text-[#be123c]'];
-            headerLaudo.classList.remove(...resetClasses);
-            titulo.classList.remove('text-[#047857]', 'text-[#b45309]', 'text-[#be123c]', 'text-wh-accent');
-            pontos.classList.remove('text-[#047857]', 'text-[#b45309]', 'text-[#be123c]', 'text-wh-accent');
+            // Limpa as cores de texto (pois o fundo agora fica inalterado no modo escuro)
+            const resetClasses = ['text-[#047857]', 'text-[#b45309]', 'text-[#be123c]', 'dark:text-emerald-400', 'dark:text-amber-400', 'dark:text-rose-400'];
+            titulo.classList.remove(...resetClasses, 'text-wh-accent', 'dark:text-slate-100');
+            pontos.classList.remove(...resetClasses, 'text-wh-accent', 'dark:text-slate-100');
             box.classList.remove('show');
-            
             marcador.style.left = '0%';
             spanPeriodo.textContent = periodoSelecionado;
 
@@ -359,10 +392,8 @@
                 marcador.style.left = percentualBarra + '%';
 
                 if (cargaTotal <= limiteVerde) {
-                    // ZONA VERDE
-                    headerLaudo.classList.add('bg-[#ecfdf5]', 'text-[#047857]');
-                    titulo.classList.add('text-[#047857]');
-                    pontos.classList.add('text-[#047857]');
+                    titulo.classList.add('text-[#047857]', 'dark:text-emerald-400');
+                    pontos.classList.add('text-[#047857]', 'dark:text-emerald-400');
                     
                     titulo.textContent = "Equilíbrio Operacional";
                     pontos.textContent = cargaTotal;
@@ -371,21 +402,19 @@
                     conteudoSanfona = gerarAccordion(
                         'org', '🛡️ 1. Frente Organizacional',
                         `<li class="leading-relaxed mb-2"><strong>Aproveitamento Estratégico:</strong> Direcionar o foco do profissional para projetos de inovação, como a estruturação do <em>Employer Branding</em> (Marca Empregadora) ou a análise de dados em <em>People Analytics</em>.</li>
-                         <li class="leading-relaxed"><strong>Cultura e Mentoria:</strong> Delegar a condução de integrações de novos funcionários (Onboarding) para aproveitar sua estabilidade emocional e engajamento, transmitindo uma energia positiva aos recém-chegados.</li>`
+                         <li class="leading-relaxed"><strong>Cultura e Mentoria:</strong> Delegar a condução de integrações de novos funcionários (Onboarding) para aproveitar sua estabilidade emocional e engajamento.</li>`
                     ) + gerarAccordion(
                         'psi', '🧠 2. Frente Psicológica',
-                        `<li class="leading-relaxed"><strong>1:1 de Carreira:</strong> Manter a rotina de reuniões de alinhamento com a liderança, priorizando discussões sobre desenvolvimento e plano de carreira, demonstrando claramente o investimento da empresa no futuro do colaborador.</li>`
+                        `<li class="leading-relaxed"><strong>1:1 de Carreira:</strong> Manter a rotina de reuniões de alinhamento com a liderança, priorizando discussões sobre desenvolvimento e plano de carreira.</li>`
                     ) + gerarAccordion(
                         'bem', '💆 3. Frente de Bem-Estar e Benefícios',
-                        `<li class="leading-relaxed mb-2"><strong>Incentivo à Qualidade de Vida:</strong> Reforçar a comunicação para que o profissional utilize as plataformas parceiras da empresa (como Gympass/Wellhub, ou convênios com nutricionistas e psicólogos preventivos).</li>
-                         <li class="leading-relaxed"><strong>Recompensa Operacional:</strong> Avaliar a concessão de <em>Short Friday</em> (saída antecipada na sexta-feira) como um reforço positivo (Behaviorismo) pelo desempenho sustentável entregue.</li>`
+                        `<li class="leading-relaxed mb-2"><strong>Incentivo à Qualidade de Vida:</strong> Reforçar a comunicação para uso das plataformas parceiras da empresa (como Gympass/Wellhub).</li>
+                         <li class="leading-relaxed"><strong>Recompensa Operacional:</strong> Avaliar a concessão de <em>Short Friday</em> como um reforço positivo (Behaviorismo) pelo desempenho sustentável entregue.</li>`
                     );
 
                 } else if (cargaTotal > limiteVerde && cargaTotal <= limiteAmarelo) {
-                    // ZONA AMARELA
-                    headerLaudo.classList.add('bg-[#fffbeb]', 'text-[#b45309]');
-                    titulo.classList.add('text-[#b45309]');
-                    pontos.classList.add('text-[#b45309]');
+                    titulo.classList.add('text-[#b45309]', 'dark:text-amber-400');
+                    pontos.classList.add('text-[#b45309]', 'dark:text-amber-400');
                     
                     titulo.textContent = "Alerta: Fadiga por Compaixão";
                     pontos.textContent = cargaTotal;
@@ -406,10 +435,8 @@
                     );
 
                 } else {
-                    // ZONA VERMELHA
-                    headerLaudo.classList.add('bg-[#fef2f2]', 'text-[#be123c]');
-                    titulo.classList.add('text-[#be123c]');
-                    pontos.classList.add('text-[#be123c]');
+                    titulo.classList.add('text-[#be123c]', 'dark:text-rose-400');
+                    pontos.classList.add('text-[#be123c]', 'dark:text-rose-400');
                     
                     titulo.textContent = "Risco Crítico de Burnout";
                     pontos.textContent = cargaTotal;
@@ -433,7 +460,6 @@
                 txtAtitude.innerHTML = conteudoSanfona;
                 box.classList.add('show');
                 
-                // Rola a página suavemente para o resultado
                 setTimeout(() => {
                     box.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }, 100);
@@ -443,14 +469,14 @@
 
         function gerarAccordion(id, titulo, itensLista) {
             return `
-            <div class="border border-black/5 rounded-2xl overflow-hidden bg-white hover:border-black/10 transition-all duration-200 shadow-sm mb-3">
+            <div class="border border-black/5 dark:border-wh-darkBorder rounded-2xl overflow-hidden bg-white dark:bg-wh-darkInput hover:border-black/10 dark:hover:border-slate-500 transition-all duration-200 shadow-sm mb-3">
                 <button type="button" onclick="toggleAccordion('${id}')" class="w-full px-5 py-4 flex justify-between items-center text-left focus:outline-none group bg-transparent">
-                    <span class="font-extrabold text-[13px] text-wh-accent group-hover:text-wh-primary transition-colors">${titulo}</span>
-                    <span id="icon-${id}" class="text-xl font-medium text-wh-text/30 group-hover:text-wh-primary transition-colors">+</span>
+                    <span class="font-extrabold text-[13px] text-wh-accent dark:text-slate-200 group-hover:text-wh-primary dark:group-hover:text-rose-400 transition-colors">${titulo}</span>
+                    <span id="icon-${id}" class="text-xl font-medium text-wh-text/30 dark:text-slate-500 group-hover:text-wh-primary dark:group-hover:text-rose-400 transition-colors">+</span>
                 </button>
                 <div id="content-${id}" class="accordion-content">
                     <div class="px-5 pb-5 pt-0">
-                        <ul class="list-disc pl-4 text-[13px] text-wh-accent/80 font-medium">
+                        <ul class="list-disc pl-4 text-[13px] text-wh-accent/80 dark:text-slate-300 font-medium">
                             ${itensLista}
                         </ul>
                     </div>
@@ -462,8 +488,6 @@
             const box = document.getElementById('resultadoBox');
             box.classList.remove('show');
             setTimeout(() => {
-                const resetClasses = ['bg-[#ecfdf5]', 'bg-[#fffbeb]', 'bg-[#fef2f2]', 'text-[#047857]', 'text-[#b45309]', 'text-[#be123c]'];
-                document.getElementById('headerLaudo').classList.remove(...resetClasses);
                 document.getElementById('marcadorBarra').style.left = '0%';
             }, 500); 
         }
